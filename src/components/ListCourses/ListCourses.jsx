@@ -159,7 +159,7 @@ export const ListCourses = () => {
           <div
             key={course.id}
             className={`grid grid-cols-1 md:grid-cols-2 p-4 rounded-lg shadow-lg hover:border-blue-100 border-solid border-[2px] cursor-pointer ${
-              inView ? "animate__animated animate__fadeInUp animate__slow" : ""
+              inView ? "animate__animated animate__fadeInUp" : ""
             }`}
             style={{ height: "230px" }}
           >

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerCoursesThunk } from "./thunk";
+import { deleteCoursesThunk } from "./thunkDelete";
+import { toast } from "react-toastify";
 
 const initialState = {
   
@@ -21,11 +23,11 @@ export const {
     .addCase(registerCoursesThunk.pending, (state) => {
         
       })
-      .addCase(registerCoursesThunk.fulfilled, (state, action) => {
-        
+      .addCase(deleteCoursesThunk.fulfilled, (state, action) => {
+        toast.success('Bạn đã hủy ghi danh thành công!')
       })
-      .addCase(registerCoursesThunk.rejected, (state, action) => {
-        
+      .addCase(deleteCoursesThunk.rejected, (state, action) => {
+       
       });
   },
 });

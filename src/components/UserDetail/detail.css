@@ -35,4 +35,15 @@
   }
   
   /* Định dạng cho các nút hoặc các yếu tố khác cần thiết có thể được thêm vào */
-  
+  .btn-detail {
+    background-color: red; /* Màu nền */
+    color: #fff; /* Màu chữ */
+    font-weight: bold; /* Đậm */
+    border-radius: 0.25rem; /* Bo tròn viền */
+    padding: 0.5rem 1rem; /* Khoảng cách bên trong */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  }
+
+  .btn-detail:hover {
+    background-color: rgba(255, 0, 0, 0.7); /* Màu nền khi hover */
+  }

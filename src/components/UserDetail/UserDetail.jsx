@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import "../cssFixed/fixed.css";
 import "./detail.css";
 import { useGetDetailUser } from "../../hook/useGetDetailUser";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { PATH } from "../../constant/config";
 import { Pagination } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCoursesThunk } from "../../store/Courses/thunkDelete";
 
 export const UserDetail = () => {
   const { data: userInfo } = useGetDetailUser();
+  const { userLogin } = useSelector((state) => state.quanLyNguoiDung);
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4; 
 
@@ -18,6 +25,17 @@ export const UserDetail = () => {
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const userCourses = userInfo?.chiTietKhoaHocGhiDanh || [];
+
+  const handleRegisterClick = (course) => {
+    const payload = {
+      maKhoaHoc: course.maKhoaHoc,
+      taiKhoan: userLogin.payload.taiKhoan,
+    }
+
+    dispatch(deleteCoursesThunk(payload));
+    navigate(PATH.home)
+  };
+
 
   return (
     <div className="maTop">
@@ -86,10 +104,14 @@ export const UserDetail = () => {
                     <strong>Ngày tạo:</strong>{" "}
                     {new Date(course.ngayTao).toLocaleDateString()}
                   </p>
-                  <p className="text-red-500 text-lg">
-                    <strong className="text-gray-700">Đánh giá:</strong>{" "}
-                    {course.danhGia}
-                  </p>
+                  <div className="flex justify-between">
+                    <p className="text-red-500 text-lg">
+                      <strong className="text-gray-700">Đánh giá:</strong>{" "}
+                      {course.danhGia}
+                    </p>
+                    <button className="btn-detail" onClick={() => handleRegisterClick(course)}>Hủy khóa học</button>
+                  </div>
+                  
                 </div>
               </div>
             ))}
