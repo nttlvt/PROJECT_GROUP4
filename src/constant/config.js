@@ -4,7 +4,7 @@ export const PATH = {
   home: "/",
   detail: "/detail",
   header: "/header",
-  footer: "/footer",
+  listcourses: "/listcourses",
   admin: "/admin/user",
   user: "/admin/user",
 };
