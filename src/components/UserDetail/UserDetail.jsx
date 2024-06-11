@@ -36,7 +36,6 @@ export const UserDetail = () => {
     navigate(PATH.home)
   };
 
-
   return (
     <div className="maTop">
       <div className="container mx-auto mt-10 p-5">
