@@ -3,7 +3,7 @@ export const PATH = {
   dangky: "/dangky",
   home: "/",
   detail: "/detail",
-  header: "/header",
+  edituser: "/edituser",
   listcourses: "/listcourses",
   admin: "/admin/user",
   user: "/admin/user",

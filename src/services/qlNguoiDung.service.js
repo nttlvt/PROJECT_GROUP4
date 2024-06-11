@@ -20,4 +20,13 @@ export const qlNguoiDungServices = {
     getDetailUser: async () => {
         return api.post(`${BASE_URL}/QuanLyNguoiDung/ThongTinTaiKhoan`);
     },
+
+    editUser: async (formData) => {
+        try{
+            return response = await api.put(`${BASE_URL}/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, formData)
+        }catch (error) {
+            console.error('Error edit user:', error);
+            throw error;  
+          }
+    }
 };

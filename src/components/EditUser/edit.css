@@ -1,0 +1,12 @@
+.btn {
+    background-color: #1e3a8a; /* Màu nền */
+    color: #fff; /* Màu chữ */
+    font-weight: bold; /* Đậm */
+    border-radius: 0.25rem; /* Bo tròn viền */
+    padding: 0.5rem 1rem; /* Khoảng cách bên trong */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  }
+  
+  .btn:hover {
+    background-color: #1a365d; /* Màu nền khi hover */
+  }

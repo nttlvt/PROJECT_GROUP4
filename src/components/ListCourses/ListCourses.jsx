@@ -24,7 +24,7 @@ export const ListCourses = () => {
     (course) => course.maKhoaHoc
   )
   const isCourseRegistered = (courseId) => {
-    return registeredCourseIds.includes(courseId);
+    return registeredCourseIds?.includes(courseId);
   };
 
   const dispatch = useDispatch();

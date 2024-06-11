@@ -4,11 +4,14 @@ import "./detail.css";
 import { useGetDetailUser } from "../../hook/useGetDetailUser";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PATH } from "../../constant/config";
-import { Pagination } from "antd";
+import { Modal, Pagination } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCoursesThunk } from "../../store/Courses/thunkDelete";
 
 export const UserDetail = () => {
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
   const { data: userInfo } = useGetDetailUser();
   const { userLogin } = useSelector((state) => state.quanLyNguoiDung);
 
@@ -26,9 +29,14 @@ export const UserDetail = () => {
   const endIndex = startIndex + pageSize;
   const userCourses = userInfo?.chiTietKhoaHocGhiDanh || [];
 
-  const handleRegisterClick = (course) => {
+  const handleDeleteClick = (course) => {
+    setSelectedCourse(course);
+    setShowConfirmation(true);
+  };
+
+  const handleConfirm = () => {
     const payload = {
-      maKhoaHoc: course.maKhoaHoc,
+      maKhoaHoc: selectedCourse.maKhoaHoc,
       taiKhoan: userLogin.payload.taiKhoan,
     }
 
@@ -39,7 +47,7 @@ export const UserDetail = () => {
   return (
     <div className="maTop">
       <div className="container mx-auto mt-10 p-5">
-        <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <div className="bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-3xl font-semibold mb-4 border-b pb-2">
             Thông tin cá nhân
           </h2>
@@ -69,6 +77,8 @@ export const UserDetail = () => {
           </div>
         </div>
       </div>
+
+      <button className="btn bg-orange-500 hover:bg-orange-700 maLeft" onClick={() => navigate(PATH.edituser)}>Chỉnh sửa thông tin cá nhân</button>
 
       <div className="container mx-auto p-5">
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
@@ -108,7 +118,7 @@ export const UserDetail = () => {
                       <strong className="text-gray-700">Đánh giá:</strong>{" "}
                       {course.danhGia}
                     </p>
-                    <button className="btn-detail" onClick={() => handleRegisterClick(course)}>Hủy khóa học</button>
+                    <button className="btn-detail" onClick={() => handleDeleteClick(course)}>Hủy khóa học</button>
                   </div>
                   
                 </div>
@@ -143,6 +153,25 @@ export const UserDetail = () => {
           showSizeChanger={false}
         />
       </div>
+      <Modal
+        title="Xác nhận hủy khóa học"
+        open={showConfirmation}
+        onCancel={() => setShowConfirmation(false)}
+        footer={[
+          <button
+            key="cancel"
+            className="btn me-3 w-[90px]"
+            onClick={() => setShowConfirmation(false)}
+          >
+            Hủy
+          </button>,
+          <button key="confirm" className="btn" onClick={handleConfirm}>
+            Xác nhận
+          </button>,
+        ]}
+      >
+        <p>Bạn chắc chắn muốn xóa khóa học này?</p>
+      </Modal>
     </div>
   );
 };
