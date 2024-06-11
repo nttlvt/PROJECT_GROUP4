@@ -1,0 +1,21 @@
+.about__number {
+    padding: 20px 0;
+}
+
+.number__item {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.item__content {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.counter {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}

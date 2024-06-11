@@ -49,7 +49,7 @@ export const {
 
           //lưu thông tin
           localStorage.setItem(LOCAL_USER_LOGIN_KEY, JSON.stringify(payload));
-          // localStorage.setItem(TOKEN, payload.accessToken);
+          localStorage.setItem(TOKEN, payload.payload.accessToken);
           console.log(payload)
           state.userLogin = payload;
         }

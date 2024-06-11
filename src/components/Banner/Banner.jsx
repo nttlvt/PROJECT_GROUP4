@@ -3,15 +3,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import '../cssFixed/fixed.css'
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 export const Banner = () => {
   return (
     <div>
-      <div className="banner bg-white" style={{ marginTop: "112px" }}>
-        <h2 className="text-3xl font-semibold text-center text-black mb-6 pt-[50px]">
+      <div className="banner bg-white maTop">
+        <h2 className="text-3xl font-semibold text-center text-black pt-[50px]">
           6 LÝ DO NÊN HỌC LẬP TRÌNH TẠI IIG APTECH
         </h2>
+        <img
+          loading="lazy"
+          decoding="async"
+          width={261}
+          height={25}
+          src="https://aptech.fpt.edu.vn/tuyensinh/wp-content/uploads/2021/12/icon_title.png"
+          className="m-auto"
+          alt
+        />
 
         <Swiper
           slidesPerView={1}

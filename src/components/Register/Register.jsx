@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerThunk } from "../../store/User/thunk";
 import { useForm, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export const Register = ({ onSwitchToLogin }) => {
   const classInput = `bg-[#1618230f] px-[20px] py-[12px] w-full transition outline-none rounded-[44px] h-[44px] text-sm font-inter
@@ -27,11 +28,11 @@ export const Register = ({ onSwitchToLogin }) => {
     dispatch(registerThunk(values))
       .unwrap()
       .then(() => {
-        alert("Đăng ký thành công!");
+        toast.success('Đăng ký tài khoản thành công!')
         onSwitchToLogin(); // Chuyển sang trang đăng nhập sau khi đăng ký thành công
       })
       .catch((error) => {
-        alert("Đăng ký thất bại: " + error.message);
+        toast.error(error?.response.data?.content)
       });
   };
 

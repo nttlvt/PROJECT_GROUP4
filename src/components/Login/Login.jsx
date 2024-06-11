@@ -13,21 +13,33 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
     border dark:border-slate-700 dark:focus:border-slate-400 
     focus:border-slate-400 border-slate-200`;
 
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isFetchingLogin, userLogin } = useSelector((state) => state.quanLyNguoiDung);
+  const { isFetchingLogin, isFetchingRegister, userLogin } = useSelector((state) => state.quanLyNguoiDung);
 
-  const { handleSubmit, control, formState: { errors } } = useForm();
+  const { handleSubmit, control, formState: { errors }, setValue } = useForm();
 
   const onSubmit = (value) => {
     dispatch(loginThunk(value))
       .unwrap()
       .then(() => {
-        toast.success('Đăng nhập tài khoản thành công!')
+        alert('Đăng nhập tài khoản thành công!')
+        window.location.reload()
       })
       .catch((error) => {
         toast.error(error?.response.data?.content)
       });
+  };
+
+  const fillAdminCredentials = () => {
+    setValue("taiKhoan", "abcde");
+    setValue("matKhau", "string");
+  };
+
+  const fillUserCredentials = () => {
+    setValue("taiKhoan", "khoacun");
+    setValue("matKhau", "123456");
   };
 
   return (
@@ -127,10 +139,10 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
           </div>
 
           <div className="flex gap-5 items-center">
-            <Button className="w-full px-0 !border-slate-500">
+            <Button className="w-full px-0 !border-slate-500" onClick={fillUserCredentials}>
               Khách hàng
             </Button>
-            <Button className="w-full px-0 !border-slate-500">
+            <Button className="w-full px-0 !border-slate-500" onClick={fillAdminCredentials}>
               Quản trị
             </Button>
           </div>

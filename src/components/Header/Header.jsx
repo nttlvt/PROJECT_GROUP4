@@ -1,15 +1,36 @@
 import React, { useState } from "react";
 import { ModalAuth } from "../Modal/ModalAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { Avatar, Button, Popover } from "antd";
+import {UserIcon} from "../../assets/icon/UserIcon"
+import { quanLyNguoiDungActions } from "../../store/User/slice";
+
+import './header.css'
+import { toast } from "react-toastify";
+import { NavLink, useNavigate } from "react-router-dom";
+import { PATH } from "../../constant/config";
 
 export const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [authMode, setAuthMode] = useState('login');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("login");
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const openAuthModal = (mode) => {
     setAuthMode(mode);
     setIsModalOpen(true);
   };
   const closeAuthModal = () => setIsModalOpen(false);
+
+  const { userLogin } = useSelector((state) => state.quanLyNguoiDung);
+
+  const handleLogout = () => {
+    dispatch(quanLyNguoiDungActions.logOut());
+    toast.success('Bạn đã đăng xuất thành công!')
+    navigate(PATH.home)
+  };
+
   return (
     <div className="header fixed top-0 left-0 z-40">
       <div className="header_top">
@@ -38,7 +59,6 @@ export const Header = () => {
             placeholder="Tìm kiếm"
             className="input"
             type="text"
-            
           />
           <span className="pt-[2px]">
             <svg width="16" height="16">
@@ -56,22 +76,51 @@ export const Header = () => {
         </div>
         {/* button */}
         <div className="flex flex-row items-center justify-center gap-4">
-          <div className="flex flex-row w-[220px] gap-2 font-bold">
-            <button className="bg-[orange] w-full text-white  font-700 text-sm rounded-lg py-1.5 h-[35px]" onClick={() => openAuthModal('login')}>
-              <div className="">Đăng nhập</div>
-            </button>
-            <button className="bg-green-700 w-full text-white  font-700 text-sm rounded-lg py-1.5 h-[35px]" onClick={() => openAuthModal('register')}>
-              <div className="">Đăng ký</div>
-            </button>
+        {userLogin ? (
+        <Popover
+          placement="bottom"
+          title={`Xin chào, ${userLogin.payload.hoTen}`}
+          content={
+          <div className="flex flex-col">
+            <NavLink className="text-red-500 italic mb-2 underline cursor-pointer hover:text-red-300" to={PATH.detail}>Thông tin cá nhân</NavLink>
+            <button className="logout-button" onClick={handleLogout}>Đăng xuất</button>
+          </div>}
+          trigger="click"
+        >
+          <div className="flex items-center gap-2 font-bold">
+          <Avatar size={"large"} icon={<UserIcon />} />
+            <div>{userLogin.payload.hoTen}</div>
           </div>
+        </Popover>
+      ) : (
+        <div className="flex flex-row w-[220px] gap-2 font-bold">
+          <button
+            className="bg-[orange] w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+            onClick={() => openAuthModal("login")}
+          >
+            <div>Đăng nhập</div>
+          </button>
+          <button
+            className="bg-green-700 w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+            onClick={() => openAuthModal("register")}
+          >
+            <div>Đăng ký</div>
+          </button>
         </div>
-        <ModalAuth isOpen={isModalOpen} onRequestClose={closeAuthModal} initialMode={authMode} />
+      )}
+        </div>
+        <ModalAuth
+          isOpen={isModalOpen}
+          onRequestClose={closeAuthModal}
+          initialMode={authMode}
+        />
       </div>
       <div className="header_bot">
         <img
           src="https://elearning.iigvietnam.com/images/logo.png"
           alt="logo"
           className="cursor-pointer"
+          onClick={() => navigate(PATH.home)}
         />
 
         <div className="w-full items-center justify-center flex">
@@ -111,7 +160,6 @@ export const Header = () => {
                 >
                   MOS (Microsoft Office Specialist)
                 </a>
-                
               </div>
             </div>
             <div className="group">

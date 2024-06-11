@@ -1,0 +1,38 @@
+/* CSS */
+.courses-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .course-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .course-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .course-details {
+    padding: 20px;
+  }
+  
+  .course-details h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .course-details p {
+    margin-bottom: 8px;
+  }
+  
+  .course-details p strong {
+    font-weight: bold;
+  }
+  
+  /* Định dạng cho các nút hoặc các yếu tố khác cần thiết có thể được thêm vào */
+  
