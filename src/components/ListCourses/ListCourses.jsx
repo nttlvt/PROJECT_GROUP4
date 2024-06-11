@@ -22,7 +22,7 @@ export const ListCourses = () => {
   const { data: userInfo } = useGetDetailUser();
   const registeredCourseIds = userInfo?.chiTietKhoaHocGhiDanh.map(
     (course) => course.maKhoaHoc
-  );
+  )
   const isCourseRegistered = (courseId) => {
     return registeredCourseIds.includes(courseId);
   };
