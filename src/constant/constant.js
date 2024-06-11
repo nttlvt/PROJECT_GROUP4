@@ -7,3 +7,4 @@ export const getAuthToken = () => {
 export const QUERY_KEY_COURSE_LIST = "GetDanhSachKhoaHoc";
 export const QUERY_KEY_CATEGORY_COURSE_LIST = "GetCategoryKhoaHoc";
 export const QUERY_KEY_DETAIL_USER = "GetDetailUser";
+export const QUERY_KEY_REGISTER = "RegisterCourses";

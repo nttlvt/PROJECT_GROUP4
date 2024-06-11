@@ -1,4 +1,4 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { qlNguoiDungServices } from "../../services/qlNguoiDung.service";
 
 export const registerThunk = createAsyncThunk('quanLyNguoiDung/register', async (payload, {rejectWithValue}) => {

@@ -21,4 +21,9 @@ export const quanLyCoursesServices = {
   getCategoryCourses: async () => {
     return api.get(`/QuanLyKhoaHoc/LayDanhMucKhoaHoc`);
   },
+
+  registerCourses: async (payload) => {
+    const response = await api.post('/QuanLyKhoaHoc/DangKyKhoaHoc', payload);
+    return response;
+  },
 };
