@@ -28,7 +28,12 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
         window.location.reload()
       })
       .catch((error) => {
-        toast.error(error?.response.data?.content)
+        if (error?.response?.data === 'TÃ i khoáº£n hoáº·c máº­t kháº©u khÃ´ng Ä‘Ãºng!') {
+          setValue("matKhau", ""); // Reset the password field
+          toast.error('Sai mật khẩu, vui lòng nhập lại mật khẩu');
+        } else {
+          toast.error(error?.response?.data?.content || 'Đăng nhập thất bại');
+        }
       });
   };
 
