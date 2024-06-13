@@ -22,11 +22,21 @@ export const qlNguoiDungServices = {
     },
 
     editUser: async (formData) => {
-        try{
-            return response = await api.put(`${BASE_URL}/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, formData)
-        }catch (error) {
+        try {
+            const response = await api.put('/QuanLyNguoiDung/CapNhatThongTinNguoiDung', formData);
+            
+            // Đảm bảo payload là một object có thể serializable
+            const payload = {
+                ...response.data,
+                headers: {
+                    'content-type': response.headers['content-type']
+                }
+            };
+    
+            return payload;
+        } catch (error) {
             console.error('Error edit user:', error);
-            throw error;  
-          }
+            throw error;
+        }
     }
 };

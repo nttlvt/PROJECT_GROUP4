@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../cssFixed/fixed.css";
+import "../css/fixed.css";
 import "./detail.css";
 import { useGetDetailUser } from "../../hook/useGetDetailUser";
 import { NavLink, useNavigate } from "react-router-dom";

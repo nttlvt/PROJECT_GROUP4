@@ -6,5 +6,6 @@ export const api = axios.create({
   headers: {
     Authorization: `Bearer ${getAuthToken()}`,
     TokenCybersoft: TOKENCYBERSOFT,
+    'Content-Type': 'application/json'
   },
 });

@@ -26,6 +26,7 @@ export const quanLyCoursesServices = {
     const response = await api.post('/QuanLyKhoaHoc/DangKyKhoaHoc', payload);
     return response;
   },
+  
   deleteCourses: async (payload) => {
     const response = await api.post('/QuanLyKhoaHoc/HuyGhiDanh', payload);
     return response;

@@ -6,6 +6,7 @@ import { useGetCategoryCourses } from "../../hook/useGetCategoryCourses";
 import { useInView } from "react-intersection-observer";
 import "animate.css";
 import "./list.css";
+import "../css/responsive.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerCoursesThunk } from "../../store/Courses/thunk";
 import { useGetDetailUser } from "../../hook/useGetDetailUser";
@@ -16,13 +17,13 @@ import { PATH } from "../../constant/config";
 export const ListCourses = () => {
   const { data: courses } = useGetCourseList();
   const { data: category } = useGetCategoryCourses();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   //register courses
   const { userLogin } = useSelector((state) => state.quanLyNguoiDung);
   const { data: userInfo } = useGetDetailUser();
   const registeredCourseIds = userInfo?.chiTietKhoaHocGhiDanh.map(
     (course) => course.maKhoaHoc
-  )
+  );
   const isCourseRegistered = (courseId) => {
     return registeredCourseIds?.includes(courseId);
   };
@@ -60,9 +61,17 @@ export const ListCourses = () => {
 
   //Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6; // Số lượng mục trên mỗi trang
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
+  const pageSize = 6;
+  const mdPageSize = 4;
+  const smPageSize = 3
+
+  const getEffectivePageSize = () => {
+    const isMD = window.innerWidth <= 768; // Adjust breakpoint as needed
+    return isMD ? mdPageSize : pageSize;
+  };
+
+  const startIndex = (currentPage - 1) * getEffectivePageSize();
+  const endIndex = startIndex + getEffectivePageSize();
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -71,11 +80,6 @@ export const ListCourses = () => {
     : courses
     ? courses.slice(startIndex, endIndex)
     : [];
-
-  const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
-  };
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
@@ -108,15 +112,15 @@ export const ListCourses = () => {
       maKhoaHoc: selectedCourse.maKhoaHoc,
       taiKhoan: userLogin.payload.taiKhoan,
     };
-    
+
     dispatch(registerCoursesThunk(payload));
-    navigate(PATH.detail)
-    toast.success('Bạn đã đăng ký khóa học thành công!');
+    navigate(PATH.detail);
+    toast.success("Bạn đã đăng ký khóa học thành công!");
     setShowConfirmation(false);
   };
   return (
-    <div className="mx-[200px]">
-      <h2 className="text-3xl font-semibold text-center text-black pt-[50px]">
+    <div className="list-courses lg:mx-[200px] md:mx-[40px]">
+      <h2 className="text-3xl font-semibold text-center text-black pt-[50px] px-[20px] md:px-0">
         CÁC CHƯƠNG TRÌNH ĐÀO TẠO LẬP TRÌNH TẠI IIG
       </h2>
       <img
@@ -128,16 +132,19 @@ export const ListCourses = () => {
         className="m-auto"
         alt
       />
-      <div className="flex justify-between mt-[30px]">
-        <SearchOutlined style={{ marginRight: 8 }} />
-        <Input
-          type="text"
-          placeholder="Tìm kiếm khóa học"
-          className="border rounded px-2 mr-2"
-          style={{ width: "calc(100% - 260px)" }}
-          onChange={handleSearch}
-        />
+      <div className="flex md:flex-row flex-col justify-between mt-[30px]">
+        <div className="flex md:mx-0 mx-[10px] w-full">
+          <SearchOutlined className="me-2"/>
+          <Input
+            type="text"
+            placeholder="Tìm kiếm khóa học"
+            className="border rounded-md px-2 mr-2 search-course md:w-full"
+            onChange={handleSearch}
+          />
+        </div>
+
         <Select
+          className="mx-[30px] md:mt-0 mt-[10px] "
           style={{ width: 250 }}
           placeholder="Chọn danh mục khóa học"
           onChange={handleCategoryChange}
@@ -154,50 +161,48 @@ export const ListCourses = () => {
       </div>
 
       {/* render khóa học */}
-      <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-8">
+      <div
+        ref={ref}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-10 gap-10 mt-8 md:ms-0 mx-3"
+      >
         {limitedCourses.map((course) => (
           <div
             key={course.id}
-            className={`grid grid-cols-1 md:grid-cols-2 p-4 rounded-lg shadow-lg hover:border-blue-100 border-solid border-[2px] cursor-pointer ${
+            className={`lg:h-[230px] md:h-[200px] h-[230px] md:px-[10px] grid grid-cols-2 p-5 rounded-lg hover:shadow-lg hover:border-blue-100 border-solid border-[3px] cursor-pointer ${
               inView ? "animate__animated animate__fadeInUp" : ""
             }`}
-            style={{ height: "230px" }}
           >
-            <div className="flex justify-center md:justify-start items-center">
+            <div className="flex lg:justify-center md:justify-start justify-normal items-center">
               <img
                 src={course.hinhAnh}
                 alt="..."
-                className="rounded-lg"
-                style={{ width: "190px", height: "170px" }}
+                className="rounded-lg lg:w-[190px] lg:h-[180px] md:w-[140px] md:h-[120px] w-[120px] h-[100px]"
               />
             </div>
-            <div className="flex flex-col justify-center relative">
+            <div className="md:mt-[5px] flex flex-col justify-center relative">
               <div className="absolute top-0 left-0">
-                <h3 className="text-xl font-bold">
-                  {truncateText(course.tenKhoaHoc, 21)}
+                <h3 className="lg:text-xl text-lg font-bold line-clamp-1">
+                  {course.tenKhoaHoc}
                 </h3>
-                <p className="mt-1">{truncateText(course.moTa, 183)}</p>
+                <p className="mt-1 line-clamp-4">{course.moTa}</p>
               </div>
-              <div className="flex gap-2 absolute bottom-0 left-0">
-                <p className="text-red-500 italic mt-3">
+              <div className="flex gap-1 absolute bottom-0 left-0 lg:text-[14px] md:text-[12px]">
+                <p className="text-red-500 italic lg:mt-3">
                   Lượt xem: {course.luotXem}
                 </p>
                 {isCourseRegistered(course.maKhoaHoc) ? (
                   <button
-                    className="btn !bg-gray-400 ms-1"
+                    className="btn !bg-gray-400 lg:ms-1 lg:w-[120px] lg:h-[35px] md:w-[117px] md:h-[35px] w-[115px] h-[53px]"
                     disabled
                     style={{
                       cursor: "not-allowed",
-                      width: "120px",
-                      height: "35px",
                     }}
                   >
                     Đã đăng ký
                   </button>
                 ) : (
                   <button
-                    className="btn ms-1"
-                    style={{ width: "120px", height: "35px" }}
+                    className="btn ms-1 md:w-[120px] md:h-[35px] w-[115px] h-[53px]"
                     onClick={() => handleRegisterClick(course)}
                   >
                     Đăng ký

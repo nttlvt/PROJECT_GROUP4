@@ -3,8 +3,8 @@ import React from "react";
 export const Footer = () => {
   return (
     <div>
-      <div className="bg-[url('https://elearning.iigvietnam.com/images/home/Footer.svg')] bg-auto 2xl:bg-cover bg-no-repeat w-full flex justify-center">
-        <div className="grid grid-cols-4 gap-x-10 gap-y-6 sm:mx-14 lg:mx-14 xl:mx-0 text-white max-w-7xl pt-[2.9rem] h-[432px]">
+      <div className="bg-[url('https://elearning.iigvietnam.com/images/home/Footer.svg')] bg-cover lg:bg-auto 2xl:bg-cover bg-no-repeat w-full flex justify-center">
+        <div className="md:pt-[65px] md:mx-20 pt-[120px] mx-[20px] mb-[20px] grid grid-cols-4 gap-x-10 gap-y-6 sm:mx-14 lg:mx-14 xl:mx-0 text-white max-w-7xl md:h-[600px] lg:h-[432px]">
           <div className="self-end">
             <img src="https://elearning.iigvietnam.com/images/logo-footer.png" alt="logo-footer" />
           </div>
@@ -43,7 +43,7 @@ export const Footer = () => {
                     </defs>
                   </svg>
                 </div>
-                <p className="text-white p-0 m-0 font-bold text-base">
+                <p className="text-white p-0 m-0 font-bold !lg:text-[16px] !md:text-[12px]">
                   1900636929
                 </p>
               </div>
@@ -63,9 +63,6 @@ export const Footer = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-white p-0 m-0 font-bold text-base">
-                  info@iigvietnam.edu.vn
-                </p>
               </div>
             </div>
             <div className="mt-4">
@@ -94,7 +91,7 @@ export const Footer = () => {
           <div className="col-span-2">
             <div className="grid grid-cols-2 sm:gap-x-4 lg:gap-x-8 gap-y-6">
               <div>
-                <p className="font-bold text-base mb-1">Trụ sở chính</p>
+                <p className="font-bold text-base mb-1 sm:ms-[20px]">Trụ sở chính</p>
                 <div className="flex flex-row gap-1.5">
                   <div className="flex flex-row justify-center pt-[2px]">
                     <svg
@@ -121,7 +118,7 @@ export const Footer = () => {
                 </div>
               </div>
               <div>
-                <p className="font-bold text-base mb-1">
+                <p className="font-bold text-base mb-1 sm:ms-[20px]">
                   Địa điểm đăng ký thi tại Hà Nội
                 </p>
                 <div className="flex flex-row gap-1.5">
@@ -150,7 +147,7 @@ export const Footer = () => {
                 </div>
               </div>
               <div>
-                <p className="font-bold text-base mb-1">Chi nhánh TP.Đà Nẵng</p>
+                <p className="font-bold text-base mb-1 sm:ms-[20px]">Chi nhánh TP.Đà Nẵng</p>
                 <div className="flex flex-row gap-1.5">
                   <div className="flex flex-row justify-center pt-[2px]">
                     <svg
@@ -177,7 +174,7 @@ export const Footer = () => {
                 </div>
               </div>
               <div>
-                <p className="font-bold text-base mb-1">
+                <p className="font-bold text-base mb-1 sm:ms-[20px]">
                   Chi nhánh TP.Hồ Chí Minh
                 </p>
                 <div className="flex flex-row gap-1.5">
@@ -223,13 +220,6 @@ export const Footer = () => {
                 href="https://iigvietnam.com/vi/"
               >
                 Về chúng tôi
-              </a>
-              <a
-                className="cursor-pointer text-base font-bold truncate"
-                target="_blank"
-                href="https://elearning.iigvietnam.com/news/chinh-sach-bao-mat-thong-tin-khach-hang"
-              >
-                Chính sách bảo mật
               </a>
               <div className="mt-[19px]">
                 <a

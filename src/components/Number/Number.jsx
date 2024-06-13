@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import "./number.css";
+import '../css/responsive.css'
 
 export const Number = () => {
   const [counters, setCounters] = useState([5739, 890, 79]);
@@ -39,14 +40,14 @@ export const Number = () => {
   ];
 
   return (
-    <div className="container mx-auto about__number mt-[40px]">
+    <div className="lg:container lg:mx-auto about__number mt-[40px]">
       <div
         ref={ref}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center"
+        className="grid grid-cols-1 lg:grid-cols-3 md:mx-[40px] gap-4 justify-center"
       >
         {counters.map((counter, index) => (
           <div className="number__item" key={index}>
-            <div className="item__content">
+            <div className="item__content h-[200px]">
               <h4 className="font-bold">
                 {index === 0 && "Số lượng học viên"}
                 {index === 1 && "Doanh nghiệp được kết nối"}

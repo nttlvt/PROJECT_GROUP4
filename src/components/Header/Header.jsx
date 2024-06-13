@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { ModalAuth } from "../Modal/ModalAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Button, Popover } from "antd";
-import {UserIcon} from "../../assets/icon/UserIcon"
+import { UserIcon } from "../../assets/icon/UserIcon";
 import { quanLyNguoiDungActions } from "../../store/User/slice";
-
-import './header.css'
+import "../css/responsive.css";
+import "./header.css";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PATH } from "../../constant/config";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authMode, setAuthMode] = useState("login");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const openAuthModal = (mode) => {
     setAuthMode(mode);
@@ -27,15 +28,15 @@ export const Header = () => {
 
   const handleLogout = () => {
     dispatch(quanLyNguoiDungActions.logOut());
-    toast.success('Bạn đã đăng xuất thành công!')
-    navigate(PATH.home)
+    toast.success("Bạn đã đăng xuất thành công!");
+    navigate(PATH.home);
   };
 
   return (
     <div className="header fixed top-0 left-0 z-40">
-      <div className="header_top">
+      <div className="header_top lg:px-[200px] md:px-[50px] px-0 lg:gap-0 md:gap-5">
         {/* phone */}
-        <div class="flex flex-row gap-1.5 phone">
+        <div class="md:flex flex-row gap-1.5 md:items-center md:justify-center md:pt-2 phone hidden pb-2">
           <div class="flex flex-row justify-center pt-[2px]">
             <svg width="16" height="16">
               <g clip-path="url(#clip0_1534_7)">
@@ -53,11 +54,11 @@ export const Header = () => {
           <p class="text-white p-0 m-0">1900636929</p>
         </div>
         {/* search */}
-        <div className="search flex">
+        <div className="search flex lg:pt-2 ps-2 md:mx-0 ms-[5px]">
           <input
             id="search"
             placeholder="Tìm kiếm"
-            className="input"
+            className="input md:w-[310px] w-[280px]"
             type="text"
           />
           <span className="pt-[2px]">
@@ -76,38 +77,89 @@ export const Header = () => {
         </div>
         {/* button */}
         <div className="flex flex-row items-center justify-center gap-4">
-        {userLogin ? (
-        <Popover
-          placement="bottom"
-          title={`Xin chào, ${userLogin.payload.hoTen}`}
-          content={
-          <div className="flex flex-col">
-            <NavLink className="text-red-500 italic mb-2 underline cursor-pointer hover:text-red-300" to={PATH.detail}>Thông tin cá nhân</NavLink>
-            <button className="logout-button" onClick={handleLogout}>Đăng xuất</button>
-          </div>}
-          trigger="click"
-        >
-          <div className="flex items-center gap-2 font-bold">
-          <Avatar size={"large"} icon={<UserIcon />} />
-            <div>{userLogin.payload.hoTen}</div>
-          </div>
-        </Popover>
-      ) : (
-        <div className="flex flex-row w-[220px] gap-2 font-bold">
-          <button
-            className="bg-[orange] w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
-            onClick={() => openAuthModal("login")}
-          >
-            <div>Đăng nhập</div>
-          </button>
-          <button
-            className="bg-green-700 w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
-            onClick={() => openAuthModal("register")}
-          >
-            <div>Đăng ký</div>
-          </button>
-        </div>
-      )}
+          {userLogin ? (
+            <Popover
+              placement="bottom"
+              title={`Xin chào, ${userLogin.payload.hoTen}`}
+              content={
+                <div className="flex flex-col">
+                  <NavLink
+                    className="text-red-500 italic mb-2 underline cursor-pointer hover:text-red-300"
+                    to={PATH.detail}
+                  >
+                    Thông tin cá nhân
+                  </NavLink>
+                  <button className="logout-button" onClick={handleLogout}>
+                    Đăng xuất
+                  </button>
+                </div>
+              }
+              trigger="click"
+            >
+              <div className="flex items-center gap-2 font-bold me-3 md:me-0">
+                <Avatar size={"large"} icon={<UserIcon />} />
+                <div className="lg:block hidden">{userLogin.payload.hoTen}</div>
+              </div>
+            </Popover>
+          ) : (
+            <div className="wap">
+              <Popover
+                placement="bottom"
+                content={
+                  <div className="flex flex-col md:w-[220px] gap-2 font-bold">
+                    <button
+                      className="bg-[orange] md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                      onClick={() => openAuthModal("login")}
+                    >
+                      <div>Đăng nhập</div>
+                    </button>
+                    <button
+                      className="bg-green-700 md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                      onClick={() => openAuthModal("register")}
+                    >
+                      <div>Đăng ký</div>
+                    </button>
+                  </div>
+                }
+                trigger="click"
+              >
+                <div className="sm:hidden me-2 mt-1">
+                  <button id="hamburgerBtn" className="text-white">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </Popover>
+
+              <div className="hidden md:flex flex-row w-[220px] gap-2 font-bold absolute md:static">
+                <button
+                  className="bg-[orange] w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                  onClick={() => openAuthModal("login")}
+                >
+                  <div>Đăng nhập</div>
+                </button>
+                <button
+                  className="bg-green-700 w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                  onClick={() => openAuthModal("register")}
+                >
+                  <div>Đăng ký</div>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         <ModalAuth
           isOpen={isModalOpen}
@@ -115,53 +167,70 @@ export const Header = () => {
           initialMode={authMode}
         />
       </div>
-      <div className="header_bot">
+      <div className="header_bot lg:px-[277px] md:px-[70px]">
         <img
           src="https://elearning.iigvietnam.com/images/logo.png"
           alt="logo"
           className="cursor-pointer"
           onClick={() => navigate(PATH.home)}
         />
-
-        <div className="w-full items-center justify-center flex">
-          <div className="flex">
-            <div className="group">
-              <div className="py-2 px-3 cursor-pointer text-base font-bold">
-                <span className="mr-1">Đăng ký thi</span>
+        <Popover
+          placement="bottom"
+          overlayClassName="custom-popover-nav w-full"
+          content={
+            <div className="flex flex-col py-2">
+              <div className="group">
+                <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
+                  <span className="mr-1 line-clamp-1">Khóa tự học</span>
+                </div>
               </div>
-              <div className="absolute pt-5 z-10 hidden bg-white rounded-b-lg group-hover:block  ">
+              <div className="group">
+                <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
+                  <span className="mr-1 line-clamp-1">Thi thử Online</span>
+                </div>
+              </div>
+              <div className="group">
+                <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
+                  <span className="mr-1 line-clamp-1">Học cùng Giáo viên</span>
+                </div>
+              </div>
+              <div className="group">
                 <a
-                  className="font-bold px-4 cursor-pointer min-w-[100px]"
-                  href="https://online.iigvietnam.com/"
+                  className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold hover:text-green-500"
+                  href="/news"
                 >
-                  TOPIK
-                </a>
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="https://online.iigvietnam.com/"
-                >
-                  TOEIC Speaking &amp; Writing
-                </a>
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="https://online.iigvietnam.com/"
-                >
-                  TOEFL ITP
-                </a>
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="https://online.iigvietnam.com/"
-                >
-                  TOEIC
-                </a>
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="https://online.iigvietnam.com/"
-                >
-                  MOS (Microsoft Office Specialist)
+                  <span className="mr-1 line-clamp-1">Tin tức</span>
                 </a>
               </div>
             </div>
+          }
+          arrowPointAtCenter={true}
+          overlayInnerStyle={{ padding: 0 }}
+          trigger="click"
+        >
+          <div className="sm:hidden me-2 mt-1">
+            <button className="text-black p-1 ms-[100px] hamburgerBtn absolute right-5 top-[60px]">
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </Popover>
+
+        <div className="w-full items-center justify-center md:flex hidden lg:ms-[280px] md:m-0">
+          <div className="flex">
             <div className="group">
               <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
                 <span className="mr-1 line-clamp-1">Khóa tự học</span>
@@ -176,25 +245,6 @@ export const Header = () => {
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/self-study-course/f9851345-741f-4364-890d-9e53a8010b50"
-                >
-                  Tin học
-                </a>
-              </div>
-            </div>
-            <div className="group">
-              <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                <span className="mr-1 line-clamp-1">Công cụ ôn thi</span>
-              </div>
-              <div className="absolute pt-5 z-10 hidden bg-white rounded-b-lg group-hover:block">
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="/exam-tool/031ac37c-e8c8-460e-8a22-3e27a6b3dec2"
-                >
-                  Tiếng Anh
-                </a>
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="/exam-tool/5f20cb98-7353-418b-86b3-f21bcc72371f"
                 >
                   Tin học
                 </a>
