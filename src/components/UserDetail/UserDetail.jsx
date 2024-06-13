@@ -78,7 +78,7 @@ export const UserDetail = () => {
         </div>
       </div>
 
-      <button className="btn bg-orange-500 hover:bg-orange-700 maLeft" onClick={() => navigate(PATH.edituser)}>Chỉnh sửa thông tin cá nhân</button>
+      <button className="btn bg-orange-500 hover:bg-orange-700 lg:ms-[205px] ms-[20px]" onClick={() => navigate(PATH.edituser)}>Chỉnh sửa thông tin cá nhân</button>
 
       <div className="container mx-auto p-5">
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8">

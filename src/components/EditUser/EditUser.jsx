@@ -66,11 +66,11 @@ export const EditUser = () => {
   };
 
   return (
-    <div className="edit-user-modal container mx-auto maTop mb-[40px] pt-[40px] grid grid-cols-2 gap-20">
-      <div className="img_banner mt-[-40px]">
-        <img src="/img/2885174.jpg" alt="" />
+    <div className="edit-user-modal container mx-auto maTop mb-[40px] pt-[40px] grid sm:grid-cols-2 grid-cols-1 lg:gap-20 sm:gap-1 gap-0">
+      <div className="img_banner lg:mt-[-40px] md:mt-0 lg:ms-0 md:ms-[10px] mt-[-40px] mx-5 sm:mx-0">
+        <img src="/img/2885174.jpg" className="sm:w-full sm:h-full w-full h-full" alt="" />
       </div>
-      <div className="content">
+      <div className="content lg:me-0 md:me-[50px] mx-5 sm:mx-0">
         <h1 className="font-bold text-[30px] title">Chỉnh sửa thông tin</h1>
         <form
           onSubmit={handleSubmit(showConfirmModal)}

@@ -176,7 +176,7 @@ export const ListCourses = () => {
               <img
                 src={course.hinhAnh}
                 alt="..."
-                className="rounded-lg lg:w-[190px] lg:h-[180px] md:w-[140px] md:h-[120px] w-[120px] h-[100px]"
+                className="rounded-lg lg:w-[190px] lg:h-[180px] md:w-[140px] md:h-[120px] w-[140px] h-[120px]"
               />
             </div>
             <div className="md:mt-[5px] flex flex-col justify-center relative">
