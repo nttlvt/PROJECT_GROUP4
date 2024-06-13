@@ -192,7 +192,7 @@ export const ListCourses = () => {
                 </p>
                 {isCourseRegistered(course.maKhoaHoc) ? (
                   <button
-                    className="btn !bg-gray-400 lg:ms-1 lg:w-[120px] lg:h-[35px] md:w-[117px] md:h-[35px] w-[115px] h-[53px]"
+                    className="btn !bg-gray-400 lg:ms-1 lg:w-[120px] lg:h-[35px] md:w-[117px] md:h-[35px] w-[115px] h-[60px]"
                     disabled
                     style={{
                       cursor: "not-allowed",
@@ -202,7 +202,7 @@ export const ListCourses = () => {
                   </button>
                 ) : (
                   <button
-                    className="btn ms-1 md:w-[120px] md:h-[35px] w-[115px] h-[53px]"
+                    className="btn ms-1 md:w-[120px] md:h-[35px] w-[115px] h-[60px]"
                     onClick={() => handleRegisterClick(course)}
                   >
                     Đăng ký
