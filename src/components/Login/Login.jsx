@@ -13,27 +13,32 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
     border dark:border-slate-700 dark:focus:border-slate-400 
     focus:border-slate-400 border-slate-200`;
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isFetchingLogin, isFetchingRegister, userLogin } = useSelector((state) => state.quanLyNguoiDung);
+  const { isFetchingLogin, isFetchingRegister, userLogin } = useSelector(
+    (state) => state.quanLyNguoiDung
+  );
 
-  const { handleSubmit, control, formState: { errors }, setValue } = useForm();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    setValue,
+  } = useForm();
 
   const onSubmit = (value) => {
     dispatch(loginThunk(value))
       .unwrap()
       .then(() => {
-        alert('Đăng nhập tài khoản thành công!')
-        window.location.reload()
+        alert("Đăng nhập tài khoản thành công!");
+        window.location.reload();
       })
       .catch((error) => {
-        if (error?.response?.data === 'TÃ i khoáº£n hoáº·c máº­t kháº©u khÃ´ng Ä‘Ãºng!') {
-          setValue("matKhau", ""); // Reset the password field
-          toast.error('Sai mật khẩu, vui lòng nhập lại mật khẩu');
-        } else {
-          toast.error(error?.response?.data?.content || 'Đăng nhập thất bại');
-        }
+        toast.error(
+          error?.response?.data?.content ||
+            "Đăng nhập thất bại, sai mật khẩu, vui lòng kiểm tra lại"
+        );
+        setValue("matKhau", "");
       });
   };
 
@@ -63,13 +68,17 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
         </h1>
       </div>
       <div className="mt-11">
-        <Form layout="vertical" autoComplete="off" onFinish={handleSubmit(onSubmit)}>
+        <Form
+          layout="vertical"
+          autoComplete="off"
+          onFinish={handleSubmit(onSubmit)}
+        >
           {/* TÀI KHOẢN */}
           <Form.Item
             name="taiKhoan"
             hasFeedback
             className="mb-[10px]"
-            validateStatus={errors.taiKhoan ? 'error' : ''}
+            validateStatus={errors.taiKhoan ? "error" : ""}
             help={errors.taiKhoan ? errors.taiKhoan.message : null}
           >
             <Controller
@@ -77,7 +86,7 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
               control={control}
               defaultValue=""
               rules={{
-                required: 'Tài khoản là bắt buộc',
+                required: "Tài khoản là bắt buộc",
               }}
               render={({ field }) => (
                 <Input
@@ -96,7 +105,7 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
           {/* MẬT KHẨU */}
           <Form.Item
             name="matKhau"
-            validateStatus={errors.matKhau ? 'error' : ''}
+            validateStatus={errors.matKhau ? "error" : ""}
             help={errors.matKhau ? errors.matKhau.message : null}
           >
             <Controller
@@ -104,10 +113,10 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
               control={control}
               defaultValue=""
               rules={{
-                required: 'Mật khẩu là bắt buộc',
+                required: "Mật khẩu là bắt buộc",
                 minLength: {
                   value: 6,
-                  message: 'Mật khẩu phải có ít nhất 6 ký tự',
+                  message: "Mật khẩu phải có ít nhất 6 ký tự",
                 },
               }}
               render={({ field }) => (
@@ -144,10 +153,16 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
           </div>
 
           <div className="flex gap-5 items-center">
-            <Button className="w-full px-0 !border-slate-500" onClick={fillUserCredentials}>
+            <Button
+              className="w-full px-0 !border-slate-500"
+              onClick={fillUserCredentials}
+            >
               Khách hàng
             </Button>
-            <Button className="w-full px-0 !border-slate-500" onClick={fillAdminCredentials}>
+            <Button
+              className="w-full px-0 !border-slate-500"
+              onClick={fillAdminCredentials}
+            >
               Quản trị
             </Button>
           </div>
@@ -156,7 +171,10 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
       <div className="mt-11">
         <p className="text-center text-base">
           <span>Bạn chưa có tài khoản? </span>
-          <span className="font-semibold text-primary hover:text-primary_hover active:text-primary_active cursor-pointer" onClick={onSwitchToRegister}>
+          <span
+            className="font-semibold text-primary hover:text-primary_hover active:text-primary_active cursor-pointer"
+            onClick={onSwitchToRegister}
+          >
             Đăng ký
           </span>
         </p>
