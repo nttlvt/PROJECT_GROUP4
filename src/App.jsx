@@ -6,9 +6,14 @@ import { Home } from "./page/Home/Home";
 import { UserDetail } from "./components/UserDetail/UserDetail";
 import { ListCourses } from "./components/ListCourses/ListCourses";
 import { EditUser } from "./components/EditUser/EditUser";
+
 import "./index.css"
 import '@fontsource/roboto'; // Defaults to weight 400.
-import '@fontsource/roboto/500.css'; // Weight 700.
+import '@fontsource/roboto/500.css'; // Weight 700
+import { Admin } from './pages/Admin'
+import { QlUser } from './components/Admin/QlUser'
+import { QlKH } from './components/Admin/QlKH'
+import { HomeAdmin } from './components/Admin/HomeAdmin'
 
 function App() {
   return (
@@ -19,6 +24,11 @@ function App() {
           <Route path={PATH.detail} element={<UserDetail/>}></Route>
           <Route path={PATH.listcourses} element={<ListCourses/>}></Route>
           <Route path={PATH.edituser} element={<EditUser/>}></Route>
+        </Route>
+        <Route path={PATH.admin} element={<Admin />}>
+          <Route path={PATH.qluser} element={<QlUser />} />
+          <Route path={PATH.homeadmin} element={<HomeAdmin />} />
+          <Route path={PATH.plkh} element={<QlKH />} />
         </Route>
       </Routes>
     </>

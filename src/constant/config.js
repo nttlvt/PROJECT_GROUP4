@@ -7,4 +7,8 @@ export const PATH = {
   listcourses: "/listcourses",
   admin: "/admin/user",
   user: "/admin/user",
+  'admin': '/admin',
+  'qluser': '/admin/qluser',
+  'plkh': '/admin/qlkh',
+  'homeadmin': '/admin/home'
 };
