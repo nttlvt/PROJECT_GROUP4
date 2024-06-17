@@ -23,7 +23,7 @@ export const ListCourses = () => {
 
   const [selectedInfoCourses, setSelectedInfoCourses] = useState(null);
   const { data } = useGetInfoCourses(selectedInfoCourses?.maKhoaHoc);
-  console.log(data);
+
   const handleClickGetInfoCourses = (course) => {
     setSelectedInfoCourses(course); // Lưu thông tin khóa học vào state selectedInfoCourses
   };
@@ -106,6 +106,7 @@ export const ListCourses = () => {
   };
 
   const handleRegisterClick = (course) => {
+    handleCloseModal()
     setSelectedCourse(course);
     setShowConfirmation(true);
   };
