@@ -43,10 +43,10 @@ export const Login = ({ onSwitchToRegister, onClose }) => {
   };
 
   const fillAdminCredentials = () => {
-    setValue("taiKhoan", "abcde");
-    setValue("matKhau", "string");
+    setValue("taiKhoan", "pencilkg123");
+    setValue("matKhau", "123456");
   };
-
+  
   const fillUserCredentials = () => {
     setValue("taiKhoan", "khoacun");
     setValue("matKhau", "123456");
