@@ -14,6 +14,8 @@ import { Admin } from './pages/Admin'
 import { QlUser } from './components/Admin/QlUser'
 import { QlKH } from './components/Admin/QlKH'
 import { HomeAdmin } from './components/Admin/HomeAdmin'
+import { AddUser } from "./components/Admin/AddUser";
+import { EditUserAdmin } from "./components/Admin/EditUserAdmin";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path={PATH.qluser} element={<QlUser />} />
           <Route path={PATH.homeadmin} element={<HomeAdmin />} />
           <Route path={PATH.plkh} element={<QlKH />} />
+          <Route path={PATH.adduseradmin} element={<AddUser />} />
+          <Route path={PATH.edituseradmin} element={<EditUserAdmin />}></Route>
         </Route>
       </Routes>
     </>
