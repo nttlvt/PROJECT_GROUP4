@@ -32,8 +32,8 @@ export const EditUser = () => {
 
   const onSubmit = (data) => {
     const formData = {
-      taiKhoan: data.taiKhoan,
-      matKhau: data.matKhau,
+      taiKhoan: user.taiKhoan,
+      matKhau: user.matKhau,
       hoTen: data.hoTen,
       soDT: data.soDT,
       maLoaiNguoiDung: data.maLoaiNguoiDung,

@@ -22,6 +22,15 @@ export const quanLyCoursesServices = {
     return api.get(`/QuanLyKhoaHoc/LayDanhMucKhoaHoc`);
   },
 
+  getInfoCourses: async (maKhoaHoc) => {
+    try {
+      const response = await api.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`);
+      return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+      throw new Error(`Error fetching course info: ${error.message}`);
+    }
+  },
+
   registerCourses: async (payload) => {
     const response = await api.post('/QuanLyKhoaHoc/DangKyKhoaHoc', payload);
     return response;

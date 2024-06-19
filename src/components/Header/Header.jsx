@@ -181,17 +181,17 @@ export const Header = () => {
             <div className="flex flex-col py-2">
               <div className="group">
                 <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                  <span className="mr-1 line-clamp-1">Khóa tự học</span>
+                  <span className="mr-1 line-clamp-1 hover:text-green-500">Khóa tự học</span>
                 </div>
               </div>
               <div className="group">
                 <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                  <span className="mr-1 line-clamp-1">Thi thử Online</span>
+                  <span className="mr-1 line-clamp-1 hover:text-green-500">Góc học viên</span>
                 </div>
               </div>
               <div className="group">
-                <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                  <span className="mr-1 line-clamp-1">Học cùng Giáo viên</span>
+                <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold hover:text-green-500">
+                  <span className="mr-1 line-clamp-1 hover:text-green-500">Cam kết đầu ra</span>
                 </div>
               </div>
               <div className="group">
@@ -199,7 +199,7 @@ export const Header = () => {
                   className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold hover:text-green-500"
                   href="/news"
                 >
-                  <span className="mr-1 line-clamp-1">Tin tức</span>
+                  <span className="mr-1 line-clamp-1 hover:text-green-500">Tin tức</span>
                 </a>
               </div>
             </div>
@@ -229,69 +229,61 @@ export const Header = () => {
           </div>
         </Popover>
 
-        <div className="w-full items-center justify-center md:flex hidden lg:ms-[280px] md:m-0">
+        <div className="w-full items-center justify-center md:flex hidden lg:ms-[310px] md:m-0">
           <div className="flex">
             <div className="group">
               <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                <span className="mr-1 line-clamp-1">Khóa tự học</span>
+                <span className="mr-1 line-clamp-1 hover:text-green-500">Khóa tự học</span>
               </div>
               <div className="absolute pt-5 z-10 hidden bg-white rounded-b-lg group-hover:block">
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/self-study-course/4dfcc26e-f707-410f-8acc-110c37e8f7b4"
                 >
-                  Tiếng Anh
+                  FrontEnd
                 </a>
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/self-study-course/f9851345-741f-4364-890d-9e53a8010b50"
                 >
-                  Tin học
+                  BackEnd
                 </a>
               </div>
             </div>
             <div className="group">
               <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                <span className="mr-1 line-clamp-1">Thi thử Online</span>
+                <span className="mr-1 line-clamp-1 hover:text-green-500">Góc học viên</span>
               </div>
               <div className="absolute pt-5 z-10 hidden bg-white rounded-b-lg group-hover:block">
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/mock-test/c1a11094-9c08-45a5-841e-e32f94c4840d"
                 >
-                  Dành cho thí sinh tự do
+                  Stories
                 </a>
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/mock-test/82950bd4-8fc6-4e27-be5d-d1861d547123"
                 >
-                  Dành cho cuộc thi TOEFL Challenge
+                  Thư viện ảnh
                 </a>
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/mock-test/1ee3cb4d-21d8-4aa6-b913-b0b208eea190"
                 >
-                  Dành cho các khóa đào tạo
+                  Cảm nhận học viên
                 </a>
                 <a
                   className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
                   href="/mock-test/182fe997-f5e1-4793-9323-d38cf18df068"
                 >
-                  Thi thử Online cuộc thi Tin học Quốc Tế
+                  Bài test kỹ năng
                 </a>
               </div>
             </div>
             <div className="group">
-              <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold">
-                <span className="mr-1 line-clamp-1">Học cùng Giáo viên</span>
-              </div>
-              <div className="absolute pt-5 z-10 hidden bg-white rounded-b-lg group-hover:block">
-                <a
-                  className="font-bold px-4 py-2 block cursor-pointer min-w-[100px]"
-                  href="/learn-with-teacher/3d04feda-f504-4f8d-8791-028707f78c73"
-                >
-                  Tiếng Anh
-                </a>
+              <div className="py-2 px-3 inline-flex items-center h-full cursor-pointer text-base font-bold hover:text-green-500">
+                <span className="mr-1 line-clamp-1">Cam kết đầu ra</span>
               </div>
             </div>
             <div className="group">

@@ -13,11 +13,20 @@ import { useGetDetailUser } from "../../hook/useGetDetailUser";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constant/config";
+import { useGetInfoCourses } from "../../hook/useGetInfoCourses";
 
 export const ListCourses = () => {
   const { data: courses } = useGetCourseList();
   const { data: category } = useGetCategoryCourses();
+
   const navigate = useNavigate();
+
+  const [selectedInfoCourses, setSelectedInfoCourses] = useState(null);
+  const { data } = useGetInfoCourses(selectedInfoCourses?.maKhoaHoc);
+
+  const handleClickGetInfoCourses = (course) => {
+    setSelectedInfoCourses(course); // Lưu thông tin khóa học vào state selectedInfoCourses
+  };
   //register courses
   const { userLogin } = useSelector((state) => state.quanLyNguoiDung);
   const { data: userInfo } = useGetDetailUser();
@@ -63,7 +72,6 @@ export const ListCourses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
   const mdPageSize = 4;
-  const smPageSize = 3
 
   const getEffectivePageSize = () => {
     const isMD = window.innerWidth <= 768; // Adjust breakpoint as needed
@@ -98,6 +106,7 @@ export const ListCourses = () => {
   };
 
   const handleRegisterClick = (course) => {
+    handleCloseModal()
     setSelectedCourse(course);
     setShowConfirmation(true);
   };
@@ -118,6 +127,15 @@ export const ListCourses = () => {
     toast.success("Bạn đã đăng ký khóa học thành công!");
     setShowConfirmation(false);
   };
+
+  // img select
+  const handleImageClick = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedInfoCourses(null);
+  };
   return (
     <div className="list-courses lg:mx-[200px] md:mx-[40px]">
       <h2 className="text-3xl font-semibold text-center text-black pt-[50px] px-[20px] md:px-0">
@@ -134,7 +152,7 @@ export const ListCourses = () => {
       />
       <div className="flex md:flex-row flex-col justify-between mt-[30px]">
         <div className="flex md:mx-0 mx-[10px] w-full">
-          <SearchOutlined className="me-2"/>
+          <SearchOutlined className="me-2" />
           <Input
             type="text"
             placeholder="Tìm kiếm khóa học"
@@ -154,12 +172,59 @@ export const ListCourses = () => {
           {/* Render options based on available categories */}
           {category?.map((option) => (
             <Option key={option.id} value={option.maDanhMuc}>
-              {option.maDanhMuc}
+              {option.tenDanhMuc}
             </Option>
           ))}
         </Select>
       </div>
 
+      <div className="lg:flex justify-center gap-24 mt-5 hidden">
+        {category?.map((option) => {
+          let imgSrc = "";
+          switch (option.maDanhMuc) {
+            case "BackEnd":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/reactjs-with-typescript-ttttttttt_gp01.jpeg";
+              break;
+            case "Design":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/golang_gp01.png";
+              break;
+            case "DiDong":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-di-dong_gp01.jpg";
+              break;
+            case "FrontEnd":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/front-end-can-ban-2_gp01.jpg";
+              break;
+            case "FullStack":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-full-stack-123.jpg";
+              break;
+            case "TuDuy":
+              imgSrc =
+                "https://elearningnew.cybersoft.edu.vn/hinhanh/node-js-bakery-9-1_gp01.jpg";
+              break;
+            default:
+              break;
+          }
+          return (
+            <div
+              key={option.id}
+              onClick={() => handleImageClick(option.maDanhMuc)}
+              className="cursor-pointer text-center"
+            >
+              <img
+                src={imgSrc}
+                alt={option.maDanhMuc}
+                className="w-[180px] h-[180px] rounded-lg mb-2 hover:shadow-2xl transform transition-transform duration-300 hover:-translate-y-1 "
+              />
+              <p className="font-bold">{option.tenDanhMuc}</p>
+            </div>
+          );
+        })}
+      </div>
       {/* render khóa học */}
       <div
         ref={ref}
@@ -168,9 +233,10 @@ export const ListCourses = () => {
         {limitedCourses.map((course) => (
           <div
             key={course.id}
-            className={`lg:h-[230px] md:h-[200px] h-[230px] md:px-[10px] grid grid-cols-2 p-5 rounded-lg hover:shadow-lg hover:border-blue-100 border-solid border-[3px] cursor-pointer ${
+            className={`lg:h-[230px] md:h-[200px] h-[230px] md:px-[10px] grid grid-cols-2 p-5 rounded-lg hover:shadow-2xl hover:border-blue-100 border-solid border-[3px] cursor-pointer ${
               inView ? "animate__animated animate__fadeInUp" : ""
             }`}
+            onClick={() => handleClickGetInfoCourses(course)}
           >
             <div className="flex lg:justify-center md:justify-start justify-normal items-center">
               <img
@@ -213,6 +279,37 @@ export const ListCourses = () => {
           </div>
         ))}
       </div>
+      <Modal
+        onCancel={() => handleCloseModal(null)}
+        open={selectedInfoCourses !== null}
+        footer={[
+          <button key="close" className="btn" onClick={handleCloseModal}>
+            Đóng
+          </button>,
+        ]}
+        className="top-0"
+      >
+        {data ? (
+          <div>
+            <h2 className="text-2xl font-bold">{data?.tenKhoaHoc}</h2>
+            <div className="text-center md:mt-2 mt-1">
+              <img
+                src={data?.hinhAnh}
+                alt={data?.tenKhoaHoc}
+                className="md:w-[250px] md:h-[250px] w-[100px] h-[90px] mb-4 inline-block"
+              />
+            </div>
+            <p className="font-bold md:mt-2 mt-1">Mã lớp: {data?.maKhoaHoc}</p>
+            <p className="italic md:mt-2 mt-1">Chi tiết: {data?.moTa}</p>
+            <p className="md:mt-2 mt-1 text-red-500">Lượt xem: {data?.luotXem}</p>
+            <p className="font-bold md:mt-2 mt-1">Ngày tạo: {data?.ngayTao}</p>
+            <p className="font-bold md:mt-2 mt-1">Số lượng học viên: {data?.soLuongHocVien}</p>
+            <p className="font-bold md:mt-2 mt-1 text-orange-700">Danh mục khóa: {data?.danhMucKhoaHoc.tenDanhMucKhoaHoc}</p>
+          </div>
+        ) : (
+          <p>Đang tải dữ liệu...</p>
+        )}
+      </Modal>
       {/* phan trang  */}
       <div className="mt-8 flex justify-center">
         <Pagination
@@ -257,3 +354,5 @@ export const ListCourses = () => {
     </div>
   );
 };
+
+// add

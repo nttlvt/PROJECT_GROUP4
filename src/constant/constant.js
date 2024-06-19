@@ -11,3 +11,4 @@ export const QUERY_KEY_DETAIL_USER = "GetDetailUser";
 export const QUERY_KEY_REGISTER = "RegisterCourses";
 export const QUERY_KEY_USER_LIST = "GetDanhSachUser"
 export const QUERY_KEY_USER_SEARCH = "GetSearchUser"
+export const QUERY_KEY_INFO_COURSE = "GetInfoCourses;"
