@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MenuAdmin } from '../components/Admin/MenuAdmin'
 import { Outlet } from 'react-router-dom'
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 const { Header, Content, Sider } = Layout;
 
@@ -21,14 +22,23 @@ export const Admin = () => {
   } = theme.useToken();
   const navigation = useNavigate()
   const handleNav = (a) => {
-    console.log('a', a);
-    console.log()
     navigation(a)
-
   }
+
+  const isMd = useMediaQuery({ query: '(max-width: 768px)' });
+
+  useEffect(() => {
+    if (isMd) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  }, [isMd]);
+
   return (
     <Layout hasSider>
       <Sider
+      className='lg:!w-[200px] md:!w-[60px] !w-[40px] !min-w-0'
         trigger={null} collapsible collapsed={collapsed}
         style={{
           overflow: 'auto',
@@ -64,14 +74,11 @@ export const Admin = () => {
           onClick={(item) => { handleNav(item.key) }}
         />
       </Sider>
-      <Layout
-        style={{
-          marginLeft: 200,
-        }}
-      >
+      <Layout className='lg:ms-[200px] ms-[12px]'>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"
+            className='lg:block hidden'
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
@@ -86,13 +93,13 @@ export const Admin = () => {
 
         <Content
           style={{
-            margin: '24px 16px 0',
+            margin: '0 16px',
             overflow: 'initial',
           }}
         >
           <div
+          className='md:ps-0 ps-5'
             style={{
-              padding: 15,
               borderRadius: borderRadiusLG,
             }}
           >
@@ -104,13 +111,4 @@ export const Admin = () => {
 
 
   );
-  // return (
-  //   <div className=" h-full">
-  //     <div className="flex">
-  //       <MenuAdmin className="w-auto" />
-  //       <Outlet />
-  //     </div>
-
-  //   </div>
-  // )
 }

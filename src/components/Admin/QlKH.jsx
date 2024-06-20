@@ -11,22 +11,12 @@ import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 const { Meta } = Card;
 
 export const QlKH = () => {
-    // const { danhSachKhoaHoc } = useSelector(state => state.quanLyKhoaHoc1)
-    // // console.log('ad', danhSachKhoaHoc)
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     const data = quanLyKhoaHocActionThunks.getKhoaHocThunk()
-    //     dispatch(data)   
-    //     // console.log('data2', data)
-    // }, [])
     const { searchPraram } = useSelector((state) => state.quanLyKhoaHocAdmin)
-    console.log('searchParam', searchPraram)
     const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([{}])
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocGet(searchPraram))
             .then(({ payload }) => {
-                // console.log('payload',payload);
                 setDanhSachKhoaHoc(payload)
             }
             )
@@ -36,11 +26,10 @@ export const QlKH = () => {
     }, [searchPraram])
 
     return (
-        <div>
-            <SearchAdmin name='Tìm kiếm khoá học' />
+        <div className='lg:ms-[100px] md:ms-[40px]'>
+            <SearchAdmin name='Tìm kiếm khoá học'/>
             <FormAdmin />
-            <div className="mt-4 grid grid-cols-4 gap-y-11 gap-x-5 " >
-
+            <div className="mt-4 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 lg:gap-y-10 gap-y-5 lg:gap-x-0 md:gap-x-5">
                 {
                     danhSachKhoaHoc && danhSachKhoaHoc.length > 0 ? (
                         danhSachKhoaHoc.map((value, index) => (
@@ -53,7 +42,6 @@ export const QlKH = () => {
                     )
                 }
             </div>
-
         </div>
     )
 }

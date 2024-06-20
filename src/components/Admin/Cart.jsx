@@ -59,11 +59,8 @@ export const Cart = ({ danhSachKhoaHoc }) => {
         <div>
             <Card
                 hoverable
-                style={{
-                    width: 240,
-                }}
-                cover={<img alt={danhSachKhoaHoc.tenKhoaHoc} src={danhSachKhoaHoc.hinhAnh} className='object-fill h-[200px]' />}
-                className=''
+                cover={<img alt={danhSachKhoaHoc.tenKhoaHoc} src={danhSachKhoaHoc.hinhAnh} className='object-fill lg:h-[250px] h-[200px]' />}
+                className='lg:w-[300px] md:w-[220px] w-[300px]'
             >
                 <Meta title={danhSachKhoaHoc.tenKhoaHoc} />
                 <div className='flex items-center mt-3 '>
