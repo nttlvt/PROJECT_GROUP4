@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import { Button, Col, DatePicker, Drawer, Form, Input, Popover, Row, Select, Space } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import axios from 'axios';
+const { Option } = Select;
 
-
-export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
-    // const nguoiTao = danhSachKhoaHoc?.nguoiTao?.taiKhoan
-
-
-    const { handleSubmit, control, setValue } = useForm(
+export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
+    const [image, setImage] = useState(danhSachKhoaHoc.hinhAnh);
+    const { maDanhMucKhoaHoc } = useSelector(state => state.quanLyKhoaHocAdmin)
+    const { handleSubmit, control, setValue, getValues } = useForm(
         {
             defaultValue: {
                 maKhoaHoc: '',
@@ -18,12 +19,12 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
                 tenKhoaHoc: '',
                 moTa: '',
                 luotXem: '',
-                hinhAnh: '',
+                hinhAnh: {},
                 maNhom: '',
-                soLuongHocVien: '',
+                danhGia: '',
                 maDanhMucKhoahoc: '',
-                taiKhoaNguoiTao: '',
-
+                taiKhoanNguoiTao: '',
+                ngayTao: moment(danhSachKhoaHoc.ngayTao).format("DD/MM/YYYY")
             }
         }
     )
@@ -37,39 +38,68 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
     };
     useEffect(() => {
         if (danhSachKhoaHoc) {
-            // console.log(nguoiTao)
             setValue("maKhoaHoc", danhSachKhoaHoc.maKhoaHoc);
             setValue("biDanh", danhSachKhoaHoc.biDanh);
             setValue("tenKhoaHoc", danhSachKhoaHoc.tenKhoaHoc);
-            setValue("ngayTao", danhSachKhoaHoc.ngayTao);
+            setValue(
+                "ngayTao",
+                danhSachKhoaHoc.ngayTao
+            );
             setValue("moTa", danhSachKhoaHoc.moTa);
             setValue("luotXem", danhSachKhoaHoc.luotXem);
             setValue("hinhAnh", danhSachKhoaHoc.hinhAnh);
             setValue("maNhom", danhSachKhoaHoc.maNhom);
-            setValue("soLuongHocVien", danhSachKhoaHoc.soLuongHocVien);
+            setValue("danhGia", danhSachKhoaHoc.danhGia);
             setValue("maDanhMucKhoaHoc", danhSachKhoaHoc?.danhMucKhoaHoc?.maDanhMucKhoahoc);
             setValue("taiKhoanNguoiTao", danhSachKhoaHoc?.nguoiTao?.taiKhoan);
-
         }
+
     }, [danhSachKhoaHoc, setValue]);
     const dispatch = useDispatch()
+    // console.log('dskhoa', image);
     const onSubmit = async (danhSachKhoaHoc) => {
-  console.log(danhSachKhoaHoc)
-        dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocPut(danhSachKhoaHoc))
+
+        // console.log()
+        const formData = new FormData();
+        formData.append("maKhoaHoc", danhSachKhoaHoc.maKhoaHoc);
+        formData.append("biDanh", danhSachKhoaHoc.biDanh);
+        formData.append("tenKhoaHoc", danhSachKhoaHoc.tenKhoaHoc);
+        formData.append("moTa", danhSachKhoaHoc.moTa);
+        formData.append("luotXem", danhSachKhoaHoc.luotXem);
+        formData.append("danhGia", danhSachKhoaHoc.danhGia);
+        formData.append("maNhom", danhSachKhoaHoc.maNhom);
+        formData.append("maDanhMucKhoaHoc", danhSachKhoaHoc.maDanhMucKhoaHoc);
+        formData.append("taiKhoanNguoiTao", danhSachKhoaHoc.taiKhoanNguoiTao);
+        formData.append("ngayTao", danhSachKhoaHoc.ngayTao);
+
+        if (typeof getValues('hinhAnh') === 'string') {
+
+            const imgFile = await createFileFromURL(getValues('hinhAnh'), Date.now())
+            console.log(imgFile);
+
+        } else {
+            formData.append("hinhAnh", danhSachKhoaHoc.hinhAnh);
+        }
+        // console.log(formData.getAll('maDanhMucKhoaHoc'))
+        dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocPut(formData))
             .then(() => {
                 console.log('thanh cong')
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err)    
             })
     }
+
     return (
         <>
-
+            <Popover title="Chỉnh sửa khoá học">
             <Button icon={<EditOutlined />} onClick={showDrawerPut} >
 
 
-            </Button>
+                </Button>
+            </Popover>
+
+
 
             <Drawer
                 maskClosable={false}
@@ -120,7 +150,7 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
                                 <Controller
                                     control={control}
                                     name="luotXem"
-                                    render={({ field }) => <Input {...field} type="text" placeholder="luotXem" />}
+                                    render={({ field }) => <Input {...field} type="number" placeholder="luotXem" />}
 
                                 >
 
@@ -128,12 +158,11 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label='Số lượng học viên'>
+                            <Form.Item label='Đánh giá'>
                                 <Controller
                                     control={control}
-                                    name="soLuongHocVien"
-
-                                    render={({ field }) => <Input {...field} type="text" placeholder='Số lượng học viên' />}
+                                    name="danhGia"
+                                    render={({ field }) => <Input {...field} type="number" placeholder='Đánh giá' />}
 
                                 >
 
@@ -146,25 +175,49 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
                         <Col span={12}>
                             <Form.Item label="Ngày tạo">
                                 <Controller
-                                    control={control}
                                     name="ngayTao"
-                                    render={({ field }) => <Input {...field} type="text" placeholder="Ngày tạo" />}
-
-                                >
-
-                                </Controller>
+                                    control={control}
+                                    render={({ field }) => (
+                                        <DatePicker
+                                            {...field}
+                                            format="DD/MM/YYYY"
+                                            value={field.value ? moment(field.value, "DD/MM/YYYY") : null}
+                                            onChange={(date, dateString) => field.onChange(dateString)}
+                                        />
+                                    )}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
                             <Form.Item label="Hình ảnh">
                                 <Controller
-                                    control={control}
                                     name="hinhAnh"
-                                    render={({ field }) => <Input {...field} type="text" placeholder='Hình ảnh' />}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <input
+                                            type="file"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
 
-                                >
-
-                                </Controller>
+                                                if (
+                                                    file.type === "image/jpeg" ||
+                                                    file.type === "image/jpg" ||
+                                                    file.type === "image/gif" ||
+                                                    file.type === "image/png"
+                                                ) {
+                                                    const reader = new FileReader();
+                                                    reader.onloadend = (event) => {
+                                                        setImage(event.target.result);
+                                                        field.onChange(file);
+                                                        console.log(file.type)
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            }}
+                                        />
+                                    )}
+                                />
+                                <img style={{ width: "40%", height: "40%", marginTop: "20px" }} src={image} alt="" />
                             </Form.Item>
 
                         </Col>
@@ -187,11 +240,16 @@ export const PutFormAdmin = ({ danhSachKhoaHoc, nguoiTao }) => {
                                 <Controller
                                     control={control}
                                     name="maDanhMucKhoaHoc"
-                                    render={({ field }) => <Input {...field} type="text" placeholder='Mã danh mục khoá học' />}
-
-                                >
-
-                                </Controller>
+                                    render={({ field }) => (
+                                        <Select {...field} placeholder="Chọn mã danh mục">
+                                            {maDanhMucKhoaHoc.map((maDanhMuc) => (
+                                                <Option key={maDanhMuc.maDanhMuc} value={maDanhMuc.maDanhMuc}>
+                                                    {maDanhMuc.tenDanhMuc}
+                                                </Option>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
                             </Form.Item>
                         </Col>
                     </Row>

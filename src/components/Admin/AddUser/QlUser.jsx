@@ -14,8 +14,6 @@ import { useDispatch } from "react-redux";
 import { deleteUserThunk } from "../../store/User/thunk";
 import { toast } from "react-toastify";
 import { useGetSearchUser } from "../../hook/useGetSearchUser";
-import { ModalAdmin } from "./ModalAdmin";
-import { ModalAddKhoahoc } from "./AddKhoaHoc/ModalAddKhoahoc";
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -150,7 +148,6 @@ export const QlUser = () => {
             onClick={() => showDeleteConfirm(record)}
             style={{ padding: 0, height: "auto", color: "red" }}
           />
-          <ModalAddKhoahoc ds={record} />
         </div>
       ),
     },

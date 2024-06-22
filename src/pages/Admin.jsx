@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { MenuAdmin } from '../components/Admin/MenuAdmin'
-import { Outlet } from 'react-router-dom'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { MenuAdmin } from '../components/Admin/MenuAdmin';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -10,26 +10,27 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
+// import './Admin.css'; // Import your custom CSS file
 
 const { Header, Content, Sider } = Layout;
-
 
 export const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const handleNav = (a) => {
     console.log('a', a);
-    console.log()
-    navigation(a)
+    navigation(a);
+  };
 
-  }
   return (
     <Layout hasSider>
       <Sider
-        trigger={null} collapsible collapsed={collapsed}
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
         style={{
           overflow: 'auto',
           height: '100vh',
@@ -65,9 +66,7 @@ export const Admin = () => {
         />
       </Sider>
       <Layout
-        style={{
-          marginLeft: 200,
-        }}
+        className={collapsed ? 'content-collapsed' : 'content-expanded'}
       >
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
@@ -79,9 +78,7 @@ export const Admin = () => {
               width: 64,
               height: 64,
             }}
-
           />
-      
         </Header>
 
         <Content
@@ -94,6 +91,8 @@ export const Admin = () => {
             style={{
               padding: 15,
               borderRadius: borderRadiusLG,
+              background: colorBgContainer,
+              transition: 'all 0.2s', // Smooth transition
             }}
           >
             <Outlet />
@@ -101,16 +100,5 @@ export const Admin = () => {
         </Content>
       </Layout>
     </Layout>
-
-
   );
-  // return (
-  //   <div className=" h-full">
-  //     <div className="flex">
-  //       <MenuAdmin className="w-auto" />
-  //       <Outlet />
-  //     </div>
-
-  //   </div>
-  // )
-}
+};

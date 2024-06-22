@@ -11,14 +11,6 @@ import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 const { Meta } = Card;
 
 export const QlKH = () => {
-    // const { danhSachKhoaHoc } = useSelector(state => state.quanLyKhoaHoc1)
-    // // console.log('ad', danhSachKhoaHoc)
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     const data = quanLyKhoaHocActionThunks.getKhoaHocThunk()
-    //     dispatch(data)   
-    //     // console.log('data2', data)
-    // }, [])
     const { searchPraram } = useSelector((state) => state.quanLyKhoaHocAdmin)
     console.log('searchParam', searchPraram)
     const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([{}])
