@@ -62,7 +62,7 @@ export const FormAdmin = () => {
         formData.append("taiKhoanNguoiTao", data.taiKhoaNguoiTao);
         formData.append("ngayTao", data.ngayTao);
         formData.append('hinhAnh', data.hinhAnh[0])
-        console.log(formData.getAll('maDanhMucKhoaHoc'))
+       
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocPost(formData))
         try {
 
@@ -160,7 +160,6 @@ export const FormAdmin = () => {
                                             type="file"
                                             onChange={(e) => {
                                                 const file = e.target.files[0];
-                                                console.log('afafafaf', file)
                                                 if (
                                                     file.type === "image/jpeg" ||
                                                     file.type === "image/jpg" ||

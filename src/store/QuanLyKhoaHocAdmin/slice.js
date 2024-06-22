@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { quanLyKhoaHocThunkAction } from ".";
 
 const initialState = {
-    danhSachKhoaHoc: [{}],
+    danhSachKhoaHoc: [],
     searchPraram: '',
     maDanhMucKhoaHoc: '',
-    dsNguoiDungChuaGhiDanh: {},
-    dsNguoiDungChoGhiDanh: {},
-    dsNguoiDungDaGhiDanh: {},
+    dsNguoiDungChuaGhiDanh: [],
+    dsNguoiDungChoGhiDanh: [],
+    dsNguoiDungDaGhiDanh: [],
     loading: {
         quanLyKhoaHocPost: false,
         quanLyKhoaHocGet: false,
@@ -25,9 +25,9 @@ const initialState = {
         quanLyKhoaHocDaGhiDanh: false,
         quanLyGhiDanhNguoiDung: false,
     },
-    dsKhoaHocChuaGhiDanh: {},
-    dsKhoaHocChoGhiDanh: {},
-    dsKhoaHocDaGhiDanh: {},
+    dsKhoaHocChuaGhiDanh: [],
+    dsKhoaHocChoGhiDanh: [],
+    dsKhoaHocDaGhiDanh: [],
 };
 
 export const { reducer: QuanLyKhoaHocAdminReducer, actions: QuanLyKhoaHocAdminActions } = createSlice({
@@ -62,6 +62,7 @@ export const { reducer: QuanLyKhoaHocAdminReducer, actions: QuanLyKhoaHocAdminAc
             .addCase(quanLyKhoaHocThunkAction.quanLyKhoaHocGet.rejected, (state) => {
                 state.loading.quanLyKhoaHocGet = false;
                 console.log('rejected quanLyKhoaHocGet');
+                state.danhSachKhoaHoc = '';
             })
             .addCase(quanLyKhoaHocThunkAction.quanLyKhoaHocDelete.pending, (state) => {
                 state.loading.quanLyKhoaHocDelete = true;

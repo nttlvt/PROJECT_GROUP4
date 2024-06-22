@@ -204,7 +204,7 @@ export const QuanLyKhoaHocService = {
                     }
                 }
             )
-            console.log('postKhoaHocDaGhiDanh', response)
+            // console.log('postKhoaHocDaGhiDanh', response)
             return response
         }
         catch (err) {

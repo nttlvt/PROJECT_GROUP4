@@ -15,7 +15,7 @@ export const SearchAdmin = ({ name }) => {
     const dispatch = useDispatch()
     // const onSearch = (value, _e, info) => setSearchParam({ TenKhoaHoc: value });
     const onSearch = (value, _e, info) => dispatch(QuanLyKhoaHocAdminActions.searchKhoaHoc(value ? value : ''));
-
+    
     return (
         <div className='my-3'>
             <Search placeholder={name} onSearch={onSearch} enterButton />

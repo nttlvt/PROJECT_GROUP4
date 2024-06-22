@@ -15,11 +15,11 @@ export const MenuAdmin = () => {
     };
     const navigation = useNavigate()
     const handleNav = (a) => {
-        console.log('a', a);
+      
         navigation(a)
 
     }
-    console.log()
+  
     return (
         <div className=' h-screen relative' style={{ width: 256, }} >
             <Button

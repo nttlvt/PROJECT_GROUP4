@@ -45,8 +45,6 @@ export const ModalAdmin = ({ ds }) => {
         key: user.taiKhoan
     }));
     const onSubmit = (data) => {
-        console.log('Selected user account:', data.taiKhoan);
-        console.log('Selected user account:', data.maKhoaHoc);
         dispatch(quanLyKhoaHocThunkAction.quanLyGhiDanhNguoiDung({
             maKhoaHoc: data.maKhoaHoc,
             taiKhoan: data.taiKhoan

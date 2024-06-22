@@ -9,7 +9,7 @@ import { TableAddKhoaHoc } from './TableAdminKhoaHoc';
 // import { TableAddUser } from './AddUser/TableAddUser';
 
 export const ModalAddKhoahoc = ({ ds }) => {
-    // console.log('ds', ds?.taiKhoan)
+
     const { handleSubmit, control, setValue } = useForm({
         defaultValues: {
             maKhoaHoc: '',
@@ -46,8 +46,6 @@ export const ModalAddKhoahoc = ({ ds }) => {
         key: user.maKhoaHoc
     }));
     const onSubmit = (data) => {
-        console.log('Selected user account:', data.taiKhoan);
-        console.log('Selected user account:', data.maKhoaHoc);
         dispatch(quanLyKhoaHocThunkAction.quanLyGhiDanhNguoiDung({
             maKhoaHoc: data.maKhoaHoc,
             taiKhoan: data.taiKhoan

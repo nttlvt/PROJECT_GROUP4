@@ -75,12 +75,12 @@ export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
         if (typeof getValues('hinhAnh') === 'string') {
 
             const imgFile = await createFileFromURL(getValues('hinhAnh'), Date.now())
-            console.log(imgFile);
+          
 
         } else {
             formData.append("hinhAnh", danhSachKhoaHoc.hinhAnh);
         }
-        // console.log(formData.getAll('maDanhMucKhoaHoc'))
+       
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocPut(formData))
             .then(() => {
                 console.log('thanh cong')
@@ -209,7 +209,7 @@ export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
                                                     reader.onloadend = (event) => {
                                                         setImage(event.target.result);
                                                         field.onChange(file);
-                                                        console.log(file.type)
+                                                      
                                                     };
                                                     reader.readAsDataURL(file);
                                                 }

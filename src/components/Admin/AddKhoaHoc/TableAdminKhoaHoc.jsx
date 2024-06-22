@@ -20,7 +20,7 @@ export const TableAddKhoaHoc = ({ dsKhoaHocChoGhiDanh, taiKhoan }) => {
     const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
-        console.log('Received dsKhoaHocChoGhiDanh:', dsKhoaHocChoGhiDanh);
+      
         if (dsKhoaHocChoGhiDanh) {
             setFilteredData(dsKhoaHocChoGhiDanh);
         }
