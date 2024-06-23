@@ -14,21 +14,12 @@ export const QlKH = () => {
     const { searchPraram, danhSachKhoaHoc } = useSelector((state) => state.quanLyKhoaHocAdmin)
     const [dsKhoaHoc, setDsKhoaHoc] = useState([])
   
-    const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([{}])
-
     const dispatch = useDispatch()
     useEffect(() => {
         setDsKhoaHoc([...danhSachKhoaHoc.slice(0, 8)])
     }, [danhSachKhoaHoc])
     useEffect(() => {
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocGet(searchPraram))
-        .then(({ payload }) => {
-                  setDanhSachKhoaHoc(payload)
-              }
-              )
-              .catch(err => {
-                  console.log(err)
-              })
     },[searchPraram])
     const onChange = (page, pageSize) => {
         const data = danhSachKhoaHoc.slice((page - 1) * pageSize, page * pageSize);
@@ -51,7 +42,7 @@ export const QlKH = () => {
                     )
                 }
             </div>
-            <div className="flex justify-end mt-3">
+            <div className="flex justify-center mt-3">
                 {
                     danhSachKhoaHoc && danhSachKhoaHoc.length > 0 &&
                     <Pagination defaultCurrent={1} pageSize={8} showSizeChanger={false} pageSizeOption={[]} total={danhSachKhoaHoc.length} onChange={onChange} />

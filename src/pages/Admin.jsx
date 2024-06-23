@@ -75,7 +75,7 @@ export const Admin = () => {
           onClick={(item) => { handleNav(item.key) }}
         />
       </Sider>
-      <Layout className='lg:ms-[200px] ms-[12px] collapsed ? 'content-collapsed' : 'content-expanded'>
+      <Layout className='lg:ms-[200px] ms-[12px]'>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"

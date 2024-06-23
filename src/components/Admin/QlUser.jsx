@@ -189,7 +189,7 @@ export const QlUser = () => {
               type="primary"
               icon={<PlusOutlined />}
               onClick={handleAddUser}
-              className="mt-1"
+              className="mt-1 md:w-1/3 w-3/4 lg:w-1/5"
             >
               Thêm người dùng
             </Button>
