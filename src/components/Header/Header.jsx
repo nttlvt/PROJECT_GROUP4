@@ -34,6 +34,9 @@ export const Header = () => {
 
   return (
     <div className="header fixed top-0 left-0 z-40">
+      <button className='btn'>
+            <NavLink to={PATH.admin}>Admin</NavLink>
+          </button>
       <div className="header_top lg:px-[200px] md:px-[50px] px-0 lg:gap-0 md:gap-5">
         {/* phone */}
         <div class="md:flex flex-row gap-1.5 md:items-center md:justify-center md:pt-2 phone hidden pb-2">
