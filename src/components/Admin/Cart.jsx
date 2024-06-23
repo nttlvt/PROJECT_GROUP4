@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Avatar, Button, Card, Popover, Modal } from 'antd';
 import { EyeFilled, EditOutlined, ExclamationCircleOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { ModalAdmin } from './ModalAdmin';
@@ -7,30 +7,37 @@ import { FormAdmin } from './FormAdmin';
 import { useDispatch } from 'react-redux';
 import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 import { PutFormAdmin } from './PutFormAdmin';
+
 const { Meta } = Card;
 const { confirm } = Modal;
 
 export const Cart = ({ danhSachKhoaHoc }) => {
-    const ds = danhSachKhoaHoc
-    useEffect(() => {
-        ds
-    })
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showComponent, setShowComponent] = useState(false);
+    const [ds, setDs] = useState(danhSachKhoaHoc);
+
+    useEffect(() => {
+        setDs(danhSachKhoaHoc);
+    }, [danhSachKhoaHoc]);
 
     const handleButtonClick = () => {
         setShowComponent(!showComponent);
     };
+
     const showModal = () => {
         setIsModalOpen(true);
     };
+
     const handleOk = () => {
         setIsModalOpen(false);
     };
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const dispatch = useDispatch()
+
+    const dispatch = useDispatch();
+
     const showDeleteConfirm = (maKhoaHoc) => {
         confirm({
             title: 'Are you sure delete this task?',
@@ -42,19 +49,18 @@ export const Cart = ({ danhSachKhoaHoc }) => {
             onOk: () => {
                 dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocDelete(maKhoaHoc))
                     .then(() => {
-
-                        console.log('thanhcong')
+                        console.log('thanhcong');
                     })
                     .catch((err) => {
-                        console.log('error', err)
-                    })
+                        console.log('error', err);
+                    });
             },
-
             onCancel() {
                 console.log('Cancel');
             },
         });
     };
+
     return (
         <div>
             <Card
@@ -68,24 +74,22 @@ export const Cart = ({ danhSachKhoaHoc }) => {
                     <span className='mx-1'>lượt xem</span>
                 </div>
                 <div className='flex justify-around mt-4'>
-                    <Popover title="Chi tiết khoá học" >
-                        <Button icon={<ExclamationCircleOutlined />} onClick={showModal} ></Button>
-
+                    <DetailKh ds={ds} />
+                    <PutFormAdmin danhSachKhoaHoc={danhSachKhoaHoc} />
+                    <Popover title="Xoá khoá học">
+                        <Button
+                            danger
+                            icon={<DeleteOutlined />}
+                            onClick={() => {
+                                showDeleteConfirm(danhSachKhoaHoc.maKhoaHoc);
+                            }}
+                            type="dashed"
+                        ></Button>
                     </Popover>
-                   
-                    <PutFormAdmin danhSachKhoaHoc={danhSachKhoaHoc} nguoiTao={danhSachKhoaHoc.nguoiTao } />
-                    <Popover title="Xoá khoá học" >
-                        <Button danger icon={<DeleteOutlined />} onClick={() => {
-                            showDeleteConfirm(`${danhSachKhoaHoc.maKhoaHoc}`)
-                        }
-                        } type="dashed"></Button>
-                    </Popover>
-
+                    <ModalAdmin ds={ds} />
                 </div>
-            </Card >
-            <Modal zIndex open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <DetailKh ds={ds} />
-            </Modal>
-        </div >
-    )
-}
+            </Card>
+        </div>
+    );
+};
+

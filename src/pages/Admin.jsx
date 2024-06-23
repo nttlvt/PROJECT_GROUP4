@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MenuAdmin } from '../components/Admin/MenuAdmin'
 import { Outlet } from 'react-router-dom'
 import { NavLink, useNavigate } from 'react-router-dom';
+
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,13 +15,12 @@ import { useMediaQuery } from 'react-responsive';
 
 const { Header, Content, Sider } = Layout;
 
-
 export const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const navigation = useNavigate()
+  const navigation = useNavigate();
   const handleNav = (a) => {
     navigation(a)
   }
@@ -34,6 +34,7 @@ export const Admin = () => {
       setCollapsed(false);
     }
   }, [isMd]);
+
 
   return (
     <Layout hasSider>
@@ -74,7 +75,7 @@ export const Admin = () => {
           onClick={(item) => { handleNav(item.key) }}
         />
       </Sider>
-      <Layout className='lg:ms-[200px] ms-[12px]'>
+      <Layout className='lg:ms-[200px] ms-[12px] collapsed ? 'content-collapsed' : 'content-expanded'>
         <Header style={{ padding: 0, background: colorBgContainer }}>
           <Button
             type="text"
@@ -86,9 +87,7 @@ export const Admin = () => {
               width: 64,
               height: 64,
             }}
-
           />
-      
         </Header>
 
         <Content
@@ -101,6 +100,8 @@ export const Admin = () => {
           className='md:ps-0 ps-5'
             style={{
               borderRadius: borderRadiusLG,
+              background: colorBgContainer,
+              transition: 'all 0.2s', // Smooth transition
             }}
           >
             <Outlet />
@@ -108,7 +109,5 @@ export const Admin = () => {
         </Content>
       </Layout>
     </Layout>
-
-
   );
 }

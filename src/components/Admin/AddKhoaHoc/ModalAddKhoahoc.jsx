@@ -2,32 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Popover, Select } from 'antd';
 import { UsergroupAddOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 import { useForm, Controller } from 'react-hook-form';
-import { QlUser } from './QlUser';
-import { TableAddUser } from './AddUser/TableAddUser';
+import { quanLyKhoaHocThunkAction } from '../../../store/QuanLyKhoaHocAdmin';
+import { TableAddKhoaHoc } from './TableAdminKhoaHoc';
+// import { QlUser } from './QlUser';
+// import { TableAddUser } from './AddUser/TableAddUser';
 
-export const ModalAdmin = ({ ds }) => {
+export const ModalAddKhoahoc = ({ ds }) => {
+
     const { handleSubmit, control, setValue } = useForm({
         defaultValues: {
-            maKhoaHoc: ds.maKhoaHoc,
-            taiKhoan: '',
+            maKhoaHoc: '',
+            taiKhoan: ds.taiKhoan, // Set default value for taiKhoan
         }
     });
 
-    const { dsNguoiDungChuaGhiDanh, dsNguoiDungChoGhiDanh, dsNguoiDungDaGhiDanh } = useSelector(state => state.quanLyKhoaHocAdmin);
+    const { dsKhoaHocChuaGhiDanh, dsKhoaHocChoGhiDanh, dsKhoaHocDaGhiDanh } = useSelector(state => state.quanLyKhoaHocAdmin);
     const dispatch = useDispatch();
 
     const getDanhSach = (data) => {
-        dispatch(quanLyKhoaHocThunkAction.quanLyNguoiDungChuaGhiDanh(data.maKhoaHoc))
-        dispatch(quanLyKhoaHocThunkAction.quanLyNguoiDungChoGhiDanh(data.maKhoaHoc))
-        dispatch(quanLyKhoaHocThunkAction.quanLyNguoiDungDaGhiDanh(data.maKhoaHoc))
+        dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocChuaGhiDanh(data.taiKhoan))
+        dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocChoGhiDanh(data.taiKhoan))
+        dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocDaGhiDanh(data.taiKhoan))
     };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const showModal = () => {
-        getDanhSach({ maKhoaHoc: ds.maKhoaHoc });
+        getDanhSach({ taiKhoan: ds.taiKhoan });
         setIsModalOpen(true);
     };
 
@@ -39,10 +40,10 @@ export const ModalAdmin = ({ ds }) => {
         setIsModalOpen(false);
     };
 
-    const options = dsNguoiDungChuaGhiDanh.length > 0 && dsNguoiDungChuaGhiDanh.map(user => ({
-        label: user.hoTen,
-        value: user.taiKhoan,
-        key: user.taiKhoan
+    const options = dsKhoaHocChuaGhiDanh.length > 0 && dsKhoaHocChuaGhiDanh.map(user => ({
+        label: user.tenKhoaHoc,
+        value: user.maKhoaHoc,
+        key: user.maKhoaHoc
     }));
     const onSubmit = (data) => {
         dispatch(quanLyKhoaHocThunkAction.quanLyGhiDanhNguoiDung({
@@ -50,7 +51,7 @@ export const ModalAdmin = ({ ds }) => {
             taiKhoan: data.taiKhoan
         }
         ))
-        reset({ maKhoaHoc: ds.maKhoaHoc, taiKhoan: '' });
+
     };
 
     return (
@@ -58,17 +59,16 @@ export const ModalAdmin = ({ ds }) => {
             <Popover title="Ghi danh">
                 <form onSubmit={handleSubmit(getDanhSach)}>
                     <Controller
-                        name="maKhoaHoc"
+                        name="taiKhoan"
                         control={control}
                         render={({ field }) => (
-                            <input type="hidden" {...field} value={ds.maKhoaHoc} />
+                            <input type="hidden" {...field} value={ds.taiKhoan} />
                         )}
                     />
                     <Button type="primary" htmlType='submit' icon={<UsergroupAddOutlined />} onClick={showModal}>
                     </Button>
                 </form>
             </Popover>
-
             <Modal
                 title="Ghi danh người dùng"
                 style={{ top: 20, }}
@@ -82,27 +82,27 @@ export const ModalAdmin = ({ ds }) => {
                     <form onSubmit={handleSubmit(onSubmit)} className="flex justify-between border-b-4 border-black pb-5">
                         <h1 className="text-[20px] font-bold">Chọn người dùng</h1>
                         <Controller
-                            name="taiKhoan"
+                            name="maKhoaHoc"
                             control={control}
                             render={({ field }) => (
                                 <Select
                                     {...field}
                                     showSearch
-                                    placeholder="Tìm kiếm tên người dùng"
+                                    placeholder="Tìm kiếm khoá học"
                                     filterOption={(input, option) =>
                                         option?.label.toLowerCase().includes(input.toLowerCase())
                                     }
                                     options={options}
                                     style={{ width: '70%' }}
-                                    onChange={(value) => setValue('taiKhoan', value)}
+                                    onChange={(value) => setValue('maKhoaHoc', value)}
                                 />
                             )}
                         />
                         <Controller
-                            name="maKhoaHoc"
+                            name="taiKhoan"
                             control={control}
                             render={({ field }) => (
-                                <input type="hidden" {...field} value={ds.maKhoaHoc} />
+                                <input type="hidden" {...field} value={ds.taiKhoan} />
                             )}
                         />
                         <Button htmlType='submit'>Ghi danh</Button>
@@ -110,14 +110,16 @@ export const ModalAdmin = ({ ds }) => {
 
                 </div>
                 <div>
-                    <TableAddUser dsNguoiDungChoGhiDanh={dsNguoiDungChoGhiDanh}
-                        maKhoaHoc={ds.maKhoaHoc}
+                    <TableAddKhoaHoc dsKhoaHocChoGhiDanh={dsKhoaHocChoGhiDanh}
+                        taiKhoan={ds.taiKhoan}
                     />
 
 
                 </div>
                 <div>
-                    <TableAddUser dsNguoiDungChoGhiDanh={dsNguoiDungDaGhiDanh}  maKhoaHoc={ds.maKhoaHoc}/>
+                    <TableAddKhoaHoc dsKhoaHocChoGhiDanh={dsKhoaHocDaGhiDanh}
+                        taiKhoan={ds.taiKhoan}
+                    />
                 </div>
             </Modal>
         </div>
