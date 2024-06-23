@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUserLogin } from "../../utils/getUserLogin";
 import { LOCAL_USER_LOGIN_KEY, TOKEN } from "../../constant/localStogare";
 import { loginThunk, registerThunk } from "./thunk";
+import { editUserThunk } from "./thunkEdit";
+import { toast } from "react-toastify";
 
 const initialState = {
   isFetchingRegister: false,
@@ -39,6 +41,14 @@ export const {
         }
       )
 
+      .addCase(editUserThunk.fulfilled, () => {
+        toast.success('Bạn đã chỉnh sửa thông tin tài khoản!')
+      })
+
+      .addCase(editUserThunk.rejected, () => {
+        toast.error('Đã xảy ra lỗi khi chỉnh sửa thông tin tài khoản!');
+      })
+
       //login thunk
       .addCase(loginThunk.pending, (state) => {
         state.isFetchingLogin = true;
@@ -57,6 +67,6 @@ export const {
       .addCase(loginThunk.rejected,(state, action) => {
           state.isFetchingLogin = false;
         }
-      );
+      )
   },
-});
+})

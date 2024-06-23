@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import { useGetSearchUser } from "../../hook/useGetSearchUser";
 import { ModalAdmin } from "./ModalAdmin";
 import { ModalAddKhoahoc } from "./AddKhoaHoc/ModalAddKhoahoc";
+import { useMediaQuery } from "react-responsive";
+
 
 const { Title } = Typography;
 const { Search } = Input;
@@ -95,12 +97,14 @@ export const QlUser = () => {
     {
       title: "Tài Khoản",
       dataIndex: "taiKhoan",
+      className: "w-1/12",
       key: "taiKhoan",
       sorter: (a, b) => a.taiKhoan.localeCompare(b.taiKhoan),
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Họ Tên",
+      className: "w-1/4",
       dataIndex: "hoTen",
       key: "hoTen",
       sorter: (a, b) => a.hoTen.localeCompare(b.hoTen),
@@ -109,8 +113,10 @@ export const QlUser = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      className: "w-1/4",
     },
     {
+      className: "w-1/6",
       title: "Số Điện Thoại",
       dataIndex: "soDt",
       key: "soDt",
@@ -119,6 +125,7 @@ export const QlUser = () => {
       title: "Mã Loại Người Dùng",
       dataIndex: "maLoaiNguoiDung",
       key: "maLoaiNguoiDung",
+      className: "w-1/6",
       filters: [
         { text: "Giáo viên", value: "GV" },
         { text: "Học viên", value: "HV" },
@@ -135,7 +142,7 @@ export const QlUser = () => {
       title: "Hành Động",
       key: "action",
       align: "center",
-      width: 100,
+      className: "w-1/12",  
       render: (text, record) => (
         <div style={{ display: "flex", gap: "10px" }}>
           <Button
@@ -156,23 +163,28 @@ export const QlUser = () => {
     },
   ];
 
+  const isMd = useMediaQuery({ query: '(max-width: 768px)' });
+
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    if (isMd) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  }, [isMd]);
+
   return (
-    <div style={{ padding: "20px" }}>
-      <Card
+    <div className="lg:p-[25px] md:ps-[40px] md:pt-[20px] ps-1 pt-2">
+      <Card 
         style={{ borderRadius: "10px", boxShadow: "0 4px 8px rgba(0,0,0,0.1)" }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "20px",
-          }}
-        >
-          <Title level={2} style={{ margin: 0 }}>
+        <div className="flex flex-col md:mb-[40px] lg:mb-[20px]">
+          <Title level={3} className="md:mb-[20px] lg:md-0">
             Danh Sách Người Dùng
           </Title>
-          <div className="flex gap-5">
+          <div className="md:flex flex-col gap-5">
             <Button
               type="primary"
               icon={<PlusOutlined />}
@@ -186,7 +198,7 @@ export const QlUser = () => {
               enterButton={<SearchOutlined />}
               size="large"
               onSearch={handleSearch}
-              style={{ width: "500px" }}
+              className="md:w-[500px] md:m-0 my-3"
             />
           </div>
         </div>
@@ -194,8 +206,9 @@ export const QlUser = () => {
           dataSource={filteredData}
           columns={columns}
           rowKey="taiKhoan"
-          pagination={{ pageSize: 10, showSizeChanger: false }}
+          pagination={{pageSize: isMd ? 7 : 10, showSizeChanger: false, position: ["bottomCenter"]}}
           bordered
+          scroll={{ x: 800 }}
         />
       </Card>
     </div>
