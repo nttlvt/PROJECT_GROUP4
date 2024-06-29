@@ -1,0 +1,4 @@
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 30px; /* Thay đổi kích thước của mũi tên */
+}

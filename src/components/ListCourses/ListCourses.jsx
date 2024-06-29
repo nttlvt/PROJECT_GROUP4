@@ -106,7 +106,7 @@ export const ListCourses = () => {
   };
 
   const handleRegisterClick = (course) => {
-    handleCloseModal()
+    handleCloseModal();
     setSelectedCourse(course);
     setShowConfirmation(true);
   };
@@ -152,17 +152,19 @@ export const ListCourses = () => {
       />
       <div className="flex md:flex-row flex-col justify-between mt-[30px]">
         <div className="flex md:mx-0 mx-[10px] w-full">
-          <SearchOutlined className="me-2" />
+        <div className="relative w-full md:w-1/2">
+          <SearchOutlined className="absolute left-3 top-[16px] transform -translate-y-1/2 text-gray-500 z-50" />
           <Input
             type="text"
             placeholder="Tìm kiếm khóa học"
-            className="border rounded-md px-2 mr-2 search-course md:w-full"
+            className="border rounded-md pl-10 pr-2 py-1 w-full"
             onChange={handleSearch}
           />
+      </div>
         </div>
 
         <Select
-          className="mx-[30px] md:mt-0 mt-[10px] "
+          className="lg:mx-0 md:mx-[12px] mx-[30px] md:mt-0 mt-[10px] "
           style={{ width: 250 }}
           placeholder="Chọn danh mục khóa học"
           onChange={handleCategoryChange}
@@ -287,7 +289,7 @@ export const ListCourses = () => {
             Đóng
           </button>,
         ]}
-        className="top-0"
+        className="top-[150px]"
       >
         {data ? (
           <div>
@@ -301,10 +303,16 @@ export const ListCourses = () => {
             </div>
             <p className="font-bold md:mt-2 mt-1">Mã lớp: {data?.maKhoaHoc}</p>
             <p className="italic md:mt-2 mt-1">Chi tiết: {data?.moTa}</p>
-            <p className="md:mt-2 mt-1 text-red-500">Lượt xem: {data?.luotXem}</p>
+            <p className="md:mt-2 mt-1 text-red-500">
+              Lượt xem: {data?.luotXem}
+            </p>
             <p className="font-bold md:mt-2 mt-1">Ngày tạo: {data?.ngayTao}</p>
-            <p className="font-bold md:mt-2 mt-1">Số lượng học viên: {data?.soLuongHocVien}</p>
-            <p className="font-bold md:mt-2 mt-1 text-orange-700">Danh mục khóa: {data?.danhMucKhoaHoc.tenDanhMucKhoaHoc}</p>
+            <p className="font-bold md:mt-2 mt-1">
+              Số lượng học viên: {data?.soLuongHocVien}
+            </p>
+            <p className="font-bold md:mt-2 mt-1 text-orange-700">
+              Danh mục khóa: {data?.danhMucKhoaHoc.tenDanhMucKhoaHoc}
+            </p>
           </div>
         ) : (
           <p>Đang tải dữ liệu...</p>
@@ -321,8 +329,8 @@ export const ListCourses = () => {
         />
       </div>
       <Modal
-        title="Xác nhận ghi danh khóa học"
         open={showConfirmation}
+        className="custom-modal-width"
         onCancel={() => setShowConfirmation(false)}
         footer={[
           <button
@@ -337,19 +345,28 @@ export const ListCourses = () => {
           </button>,
         ]}
       >
-        <p>Bạn xác nhận ghi danh khóa học?</p>
-        <p className="mb-5">Vui lòng ghi chữ "Đồng ý" vào ô dưới đây:</p>
-        <input
-          type="text"
-          className={`border rounded px-2 py-1 mb-2 w-full ${
-            showError ? "border-red-500" : ""
-          }`}
-          value={agree}
-          onChange={handleAgreeChange}
+        <img
+          src="https://elearning.iigvietnam.com/images/logo.png"
+          alt="logo"
+          className="cursor-pointer m-auto w-[100px] mb-[50px]"
+          onClick={() => navigate(PATH.home)}
         />
-        {showError && (
-          <p className="text-red-500">Vui lòng nhập chính xác: 'Đồng ý'</p>
-        )}
+        <div className="">
+          <h1 className="font-bold mb-5 text-[20px] text-center">Xác nhận khóa học</h1>
+          <p>Bạn xác nhận ghi danh khóa học?</p>
+          <p className="mb-5">Vui lòng ghi chữ "Đồng ý" vào ô dưới đây:</p>
+          <input
+            type="text"
+            className={`border rounded px-2 py-1 mb-2 w-full ${
+              showError ? "border-red-500" : ""
+            }`}
+            value={agree}
+            onChange={handleAgreeChange}
+          />
+          {showError && (
+            <p className="text-red-500">Vui lòng nhập chính xác: 'Đồng ý'</p>
+          )}
+        </div>
       </Modal>
     </div>
   );

@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import '../css/fixed.css'
+import './banner.css'
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 export const Banner = () => {

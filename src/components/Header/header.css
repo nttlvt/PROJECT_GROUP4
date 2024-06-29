@@ -56,3 +56,25 @@
       -1px  1px 0 #000,
        1px  1px 0 #000;
 }
+
+.hover-gradient-login {
+  background: linear-gradient(to right, green, orange);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+}
+
+.hover-gradient-login:hover {
+  background-position: right;
+}
+
+.hover-gradient-register {
+  background: linear-gradient(to left, green, orange);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+}
+
+.hover-gradient-register:hover {
+  background-position: right;
+}

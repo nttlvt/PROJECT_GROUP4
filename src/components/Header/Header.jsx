@@ -34,9 +34,6 @@ export const Header = () => {
 
   return (
     <div className="header fixed top-0 left-0 z-40">
-      <button className='btn'>
-            <NavLink to={PATH.admin}>Admin</NavLink>
-          </button>
       <div className="header_top lg:px-[200px] md:px-[50px] px-0 lg:gap-0 md:gap-5">
         {/* phone */}
         <div class="md:flex flex-row gap-1.5 md:items-center md:justify-center md:pt-2 phone hidden pb-2">
@@ -111,13 +108,13 @@ export const Header = () => {
                 content={
                   <div className="flex flex-col md:w-[220px] gap-2 font-bold">
                     <button
-                      className="bg-[orange] md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                      className="bg-[orange] md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px] hover-gradient-login"
                       onClick={() => openAuthModal("login")}
                     >
                       <div>Đăng nhập</div>
                     </button>
                     <button
-                      className="bg-green-700 md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                      className="bg-green-700 md:w-full w-[100px] text-white font-700 text-sm rounded-lg py-1.5 h-[35px] hover-gradient-register"
                       onClick={() => openAuthModal("register")}
                     >
                       <div>Đăng ký</div>
@@ -149,13 +146,13 @@ export const Header = () => {
 
               <div className="hidden md:flex flex-row w-[220px] gap-2 font-bold absolute md:static">
                 <button
-                  className="bg-[orange] w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                  className="bg-[orange] w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px] hover-gradient-login"
                   onClick={() => openAuthModal("login")}
                 >
                   <div>Đăng nhập</div>
                 </button>
                 <button
-                  className="bg-green-700 w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px]"
+                  className="bg-green-700 w-full text-white font-700 text-sm rounded-lg py-1.5 h-[35px] hover-gradient-register"
                   onClick={() => openAuthModal("register")}
                 >
                   <div>Đăng ký</div>
