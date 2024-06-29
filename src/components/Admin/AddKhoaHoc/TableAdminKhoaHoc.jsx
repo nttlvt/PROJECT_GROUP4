@@ -13,7 +13,7 @@ import { quanLyKhoaHocThunkAction } from "../../../store/QuanLyKhoaHocAdmin";
 const { Title } = Typography;
 const { Search } = Input;
 
-export const TableAddKhoaHoc = ({ dsKhoaHocChoGhiDanh, taiKhoan }) => {
+export const TableAddKhoaHoc = ({ dsKhoaHocChoGhiDanh, taiKhoan, title }) => {
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.quanLyKhoaHocAdmin);
     const [filteredData, setFilteredData] = useState([]);
@@ -107,9 +107,12 @@ export const TableAddKhoaHoc = ({ dsKhoaHocChoGhiDanh, taiKhoan }) => {
             width: 100,
             render: (text, record) => (
                 <div style={{ display: "flex", gap: "10px" }}>
-                    <Button onClick={() => handleAddUser(record)}>
+                   
+                    {
+                        title === 'Khoá học chờ xác thực' &&  <Button onClick={() => handleAddUser(record)}>
                         Ghi danh
                     </Button>
+                    }
                     <Button
                         icon={<DeleteOutlined />}
                         onClick={() => showDeleteConfirm(record)}
@@ -136,7 +139,7 @@ export const TableAddKhoaHoc = ({ dsKhoaHocChoGhiDanh, taiKhoan }) => {
                     }}
                 >
                     <Title level={3} style={{ margin: 0 }}>
-                        Khoá học chờ xác thực
+                        {title  }
                     </Title>
                     <div className="flex gap-5">
                         <Search

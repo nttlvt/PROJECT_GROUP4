@@ -6,6 +6,7 @@ import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const { Option } = Select;
 
 export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
@@ -74,7 +75,7 @@ export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
 
         if (typeof getValues('hinhAnh') === 'string') {
 
-            const imgFile = await createFileFromURL(getValues('hinhAnh'), Date.now())
+            // const imgFile = await createFileFromURL(getValues('hinhAnh'), Date.now())
           
 
         } else {
@@ -82,14 +83,16 @@ export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
         }
        
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocPut(formData))
+            .unwrap()
             .then(() => {
-                console.log('thanh cong')
+                toast.success('Cập nhật khóa học thành công');
+                dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocGet(''));
+                setOpen(false);
             })
-            .catch((err) => {
-                console.log(err)    
-            })
+            .catch((error) => {
+                toast.error(error?.response?.data);
+            });
     }
-
     return (
         <>
             <Popover title="Chỉnh sửa khoá học">
@@ -103,7 +106,7 @@ export const PutFormAdmin = ({ danhSachKhoaHoc }) => {
 
             <Drawer
                 maskClosable={false}
-                title="Create a new account"
+                title="Cập nhật khoá học"
                 width={720}
                 onClose={onClose}
                 open={open}

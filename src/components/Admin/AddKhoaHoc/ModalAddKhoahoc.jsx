@@ -70,7 +70,7 @@ export const ModalAddKhoahoc = ({ ds }) => {
                 </form>
             </Popover>
             <Modal
-                title="Ghi danh người dùng"
+                title="Ghi danh khoá học"
                 style={{ top: 20, }}
                 open={isModalOpen}
                 onOk={handleOk}
@@ -80,7 +80,7 @@ export const ModalAddKhoahoc = ({ ds }) => {
                 <div >
 
                     <form onSubmit={handleSubmit(onSubmit)} className="flex justify-between border-b-4 border-black pb-5">
-                        <h1 className="text-[20px] font-bold">Chọn người dùng</h1>
+                        <h1 className="text-[20px] font-bold">Chọn khoá học</h1>
                         <Controller
                             name="maKhoaHoc"
                             control={control}
@@ -112,6 +112,7 @@ export const ModalAddKhoahoc = ({ ds }) => {
                 <div>
                     <TableAddKhoaHoc dsKhoaHocChoGhiDanh={dsKhoaHocChoGhiDanh}
                         taiKhoan={ds.taiKhoan}
+                        title='Khoá học chờ xác thực'
                     />
 
 
@@ -119,6 +120,7 @@ export const ModalAddKhoahoc = ({ ds }) => {
                 <div>
                     <TableAddKhoaHoc dsKhoaHocChoGhiDanh={dsKhoaHocDaGhiDanh}
                         taiKhoan={ds.taiKhoan}
+                         title='Khoá học đã xác thực'
                     />
                 </div>
             </Modal>
