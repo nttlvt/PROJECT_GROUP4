@@ -112,12 +112,14 @@ export const ModalAdmin = ({ ds }) => {
                 <div>
                     <TableAddUser dsNguoiDungChoGhiDanh={dsNguoiDungChoGhiDanh}
                         maKhoaHoc={ds.maKhoaHoc}
+                        title='Học viên chờ xác thực'
                     />
 
 
                 </div>
                 <div>
-                    <TableAddUser dsNguoiDungChoGhiDanh={dsNguoiDungDaGhiDanh}  maKhoaHoc={ds.maKhoaHoc}/>
+                    <TableAddUser dsNguoiDungChoGhiDanh={dsNguoiDungDaGhiDanh} maKhoaHoc={ds.maKhoaHoc}
+                    title='Học viên đã xác thực'/>
                 </div>
             </Modal>
         </div>

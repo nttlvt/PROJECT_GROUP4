@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Card, Popover, Modal } from 'antd';
-import { EyeFilled, EditOutlined, ExclamationCircleOutlined, DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Avatar, Button, Card, Popover, Modal, message, notification } from 'antd';
+import { EyeFilled, EditOutlined, ExclamationCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import { ModalAdmin } from './ModalAdmin';
 import { DetailKh } from './DetailKh';
 import { FormAdmin } from './FormAdmin';
 import { useDispatch } from 'react-redux';
 import { quanLyKhoaHocThunkAction } from '../../store/QuanLyKhoaHocAdmin';
 import { PutFormAdmin } from './PutFormAdmin';
+import axios from 'axios';
+import { TOKENCYBERSOFT, getAuthToken } from '../../constant/constant';
+import { toast } from 'react-toastify';
 
 const { Meta } = Card;
 const { confirm } = Modal;
@@ -46,14 +49,27 @@ export const Cart = ({ danhSachKhoaHoc }) => {
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
-            onOk: () => {
-                dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocDelete(maKhoaHoc))
-                    .then(() => {
-                        console.log('thanhcong');
-                    })
-                    .catch((err) => {
-                        console.log('error', err);
-                    });
+            onOk: async () => {
+                try {
+                    const result = await axios.delete(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`,
+                        {
+                            headers: {
+                                TokenCybersoft: TOKENCYBERSOFT,
+                                'Authorization': 'Bearer ' + getAuthToken(),
+                            },
+                        })
+                    dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocGet(''));
+                    toast.success('Xoá khoá học thành công')
+                    setDs(danhSachKhoaHoc)
+                    return result
+
+                }
+                catch (error) {
+                    toast.error(error?.response?.data)
+
+                }
+
+
             },
             onCancel() {
                 console.log('Cancel');
@@ -92,4 +108,3 @@ export const Cart = ({ danhSachKhoaHoc }) => {
         </div>
     );
 };
-

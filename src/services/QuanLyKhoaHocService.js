@@ -34,14 +34,23 @@ export const QuanLyKhoaHocService = {
             console.log('post err', err)
         }
     },
-    deleteKhoaHoc: (maKhoaHoc) => {
-        axios.delete(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`,
-            {
-                headers: {
-                    TokenCybersoft: TOKENCYBERSOFT,
-                    'Authorization': 'Bearer ' + getAuthToken(),
-                },
-            })
+    deleteKhoaHoc: async (maKhoaHoc) => {
+        try {
+          const result= await  axios.delete(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`,
+                {
+                    headers: {
+                        TokenCybersoft: TOKENCYBERSOFT,
+                        'Authorization': 'Bearer ' + getAuthToken(),
+                    },
+              })
+            return result
+        }
+        catch (error) {
+            console.log('error 233',error)
+            return error
+            
+        }
+      
 
     },
     putKhoaHoc: (formData) => {
@@ -204,7 +213,7 @@ export const QuanLyKhoaHocService = {
                     }
                 }
             )
-            // console.log('postKhoaHocDaGhiDanh', response)
+      
             return response
         }
         catch (err) {

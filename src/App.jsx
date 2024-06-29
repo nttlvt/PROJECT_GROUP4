@@ -8,8 +8,8 @@ import { ListCourses } from "./components/ListCourses/ListCourses";
 import { EditUser } from "./components/EditUser/EditUser";
 
 import "./index.css"
-import '@fontsource/roboto'; // Defaults to weight 400.
-import '@fontsource/roboto/500.css'; // Weight 700
+import '@fontsource/roboto'; 
+import '@fontsource/roboto/500.css'; 
 import { Admin } from './pages/Admin'
 import { QlUser } from './components/Admin/QlUser'
 import { QlKH } from './components/Admin/QlKH'

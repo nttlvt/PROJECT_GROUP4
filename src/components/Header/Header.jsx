@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalAuth } from "../Modal/ModalAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Button, Popover } from "antd";
@@ -9,6 +9,7 @@ import "./header.css";
 import { toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PATH } from "../../constant/config";
+import { UserOutlined } from "@ant-design/icons";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,6 +31,26 @@ export const Header = () => {
     dispatch(quanLyNguoiDungActions.logOut());
     toast.success("Bạn đã đăng xuất thành công!");
     navigate(PATH.home);
+  };
+
+  useEffect(() => {
+
+    if (!userLogin || userLogin.payload.maLoaiNguoiDung !== "GV") {
+      return;
+    }
+
+
+    const adminButton = document.getElementById("adminButton");
+
+    if (adminButton) {
+      adminButton.style.display = "block";
+    }
+  }, [userLogin]);
+
+
+  const handleAdminClick = () => {
+
+    navigate(PATH.homeadmin);
   };
 
   return (
@@ -78,29 +99,42 @@ export const Header = () => {
         {/* button */}
         <div className="flex flex-row items-center justify-center gap-4">
           {userLogin ? (
-            <Popover
-              placement="bottom"
-              title={`Xin chào, ${userLogin.payload.hoTen}`}
-              content={
-                <div className="flex flex-col">
-                  <NavLink
-                    className="text-red-500 italic mb-2 underline cursor-pointer hover:text-red-300"
-                    to={PATH.detail}
-                  >
-                    Thông tin cá nhân
-                  </NavLink>
-                  <button className="logout-button" onClick={handleLogout}>
-                    Đăng xuất
-                  </button>
+            <>
+              <Popover
+                placement="bottom"
+                title={`Xin chào, ${userLogin.payload.hoTen}`}
+                content={
+                  <div className="flex flex-col">
+                    <NavLink
+                      className="text-red-500 italic mb-2 underline cursor-pointer hover:text-red-300"
+                      to={PATH.detail}
+                    >
+                      Thông tin cá nhân
+                    </NavLink>
+                    <button className="logout-button" onClick={handleLogout}>
+                      Đăng xuất
+                    </button>
+                  </div>
+                }
+                trigger="click"
+              >
+                <div className="flex items-center gap-2 font-bold me-3 md:me-0">
+                  <Avatar size={"large"} icon={<UserIcon />} />
+                  <div className="lg:block hidden">{userLogin.payload.hoTen}</div>
                 </div>
-              }
-              trigger="click"
-            >
-              <div className="flex items-center gap-2 font-bold me-3 md:me-0">
-                <Avatar size={"large"} icon={<UserIcon />} />
-                <div className="lg:block hidden">{userLogin.payload.hoTen}</div>
-              </div>
-            </Popover>
+
+              </Popover>
+              {userLogin && userLogin.payload.maLoaiNguoiDung === "GV" && (
+                <Button
+                  id="adminButton"
+                  className="admin-button"
+                  icon={<UserOutlined />}
+                  onClick={handleAdminClick}
+                >
+                  Admin
+                </Button>
+              )}
+            </>
           ) : (
             <div className="wap">
               <Popover
@@ -134,9 +168,9 @@ export const Header = () => {
                       onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                         d="M4 6h16M4 12h16M4 18h16"
                       ></path>
                     </svg>

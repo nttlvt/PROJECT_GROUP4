@@ -27,8 +27,8 @@ export const quanLyKhoaHocPost = createAsyncThunk('QuanLyKhoaHocAdmin / quanLyKh
             return result
         }
         catch (error) {
-            // console.log(rejectWithValue(error))
-            return rejectWithValue(err);
+
+            return rejectWithValue(error);
         }
 
     }
@@ -37,12 +37,15 @@ export const quanLyKhoaHocPost = createAsyncThunk('QuanLyKhoaHocAdmin / quanLyKh
 export const quanLyKhoaHocDelete = createAsyncThunk('QuanLyKhoaHocAdmin / quanLyKhoaHocDeleteThunk',
     async (payload, { rejectWithValue }) => {
         try {
-            // console.log(payload);
+         
             const result = await QuanLyKhoaHocService.deleteKhoaHoc(payload)
             return result
         }
         catch (err) {
-            return rejectWithValue(err)
+            console.log('err de', err)
+            throw err
+            // return rejectWithValue(err)
+
         }
 
     }

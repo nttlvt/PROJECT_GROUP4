@@ -3,9 +3,6 @@ import { Badge, Button, Modal, Descriptions, Popover } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 export const DetailKh = ({ ds }) => {
-  // useEffect(() => {
-  //   // Any side effects related to ds can be handled here if needed
-  // }, [ds]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,8 +31,8 @@ export const DetailKh = ({ ds }) => {
     },
     {
       key: '3',
-      label: 'Automatic Renewal',
-      children: 'YES',
+      label: 'Mã khoá học',
+      children: ds?.maKhoaHoc,
     },
     {
       key: '4',

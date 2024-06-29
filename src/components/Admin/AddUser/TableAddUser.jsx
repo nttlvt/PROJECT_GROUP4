@@ -20,12 +20,10 @@ const { Title } = Typography;
 const { Search } = Input;
 
 
-export const TableAddUser = ({ dsNguoiDungChoGhiDanh, dsNguoiDungDaGhiDanh, maKhoaHoc }) => {
-    // console.log(maKhoaHoc)
-    // const { data: userData } = dsNguoiDungDaGhiDanh
+export const TableAddUser = ({ dsNguoiDungChoGhiDanh, maKhoaHoc, title }) => {
     const { loading } = useSelector((state) => state.quanLyKhoaHocAdmin);
     const { data: userData } = dsNguoiDungChoGhiDanh;
-
+console.log('userData',userData)
 
     const [filteredData, setFilteredData] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -118,16 +116,6 @@ export const TableAddUser = ({ dsNguoiDungChoGhiDanh, dsNguoiDungDaGhiDanh, maKh
             sorter: (a, b) => a.hoTen.localeCompare(b.hoTen),
         },
         {
-            title: "Email",
-            dataIndex: "email",
-            key: "email",
-        },
-        {
-            title: "Số Điện Thoại",
-            dataIndex: "soDt",
-            key: "soDt",
-        },
-        {
             title: "Mã Loại Người Dùng",
             dataIndex: "maLoaiNguoiDung",
             key: "maLoaiNguoiDung",
@@ -150,12 +138,15 @@ export const TableAddUser = ({ dsNguoiDungChoGhiDanh, dsNguoiDungDaGhiDanh, maKh
             width: 100,
             render: (text, record) => (
                 <div style={{ display: "flex", gap: "10px" }}>
-                    <Button
+                    {
+                        title === 'Học viên chờ xác thực' && <Button
                         onClick={() => handleAddUser(record)}
 
                     >
                         Ghi danh
                     </Button>
+                    }
+
                     <Button
 
                         icon={<DeleteOutlined />}
@@ -181,7 +172,7 @@ export const TableAddUser = ({ dsNguoiDungChoGhiDanh, dsNguoiDungDaGhiDanh, maKh
                     }}
                 >
                     <Title level={3} style={{ margin: 0 }}>
-                        Học viên chờ xác thực
+                        {title}
                     </Title>
                     <div className="flex gap-5">
                         <Search

@@ -13,8 +13,8 @@ const { Meta } = Card;
 export const QlKH = () => {
     const { searchPraram, danhSachKhoaHoc } = useSelector((state) => state.quanLyKhoaHocAdmin)
     const [dsKhoaHoc, setDsKhoaHoc] = useState([])
-  
-    const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([{}])
+
+    // const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([{}])
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -23,12 +23,12 @@ export const QlKH = () => {
     useEffect(() => {
         dispatch(quanLyKhoaHocThunkAction.quanLyKhoaHocGet(searchPraram))
         .then(({ payload }) => {
-                  setDanhSachKhoaHoc(payload)
-              }
-              )
-              .catch(err => {
-                  console.log(err)
-              })
+                setDanhSachKhoaHoc(payload)
+            }
+            )
+            .catch(err => {
+                console.log(err)
+            })
     },[searchPraram])
     const onChange = (page, pageSize) => {
         const data = danhSachKhoaHoc.slice((page - 1) * pageSize, page * pageSize);
@@ -37,7 +37,7 @@ export const QlKH = () => {
     return (
         <div className='lg:ms-[100px] md:ms-[40px]'>
             <SearchAdmin name='Tìm kiếm khoá học'/>
-            <FormAdmin />
+            <FormAdmin danhSachKhoaHoc={dsKhoaHoc } />
             <div className="mt-4 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 lg:gap-y-10 gap-y-5 lg:gap-x-0 md:gap-x-5">
                 {
                     dsKhoaHoc && dsKhoaHoc.length > 0 ? (
